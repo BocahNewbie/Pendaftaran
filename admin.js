@@ -6,7 +6,6 @@ let currentSortField = 'regNo';
 let currentSortAsc = true;
 let activeAdminTab = 'pending';
 
-// Helper function to safely render Lucide Icons without throw errors
 function renderLucideSafely() {
     if (window.lucide && typeof window.lucide.createIcons === 'function') {
         try {
@@ -40,7 +39,7 @@ function handleAdminLogin(event) {
     }
 }
 
-function openAdminDashboard() {
+async function openAdminDashboard() {
     const keys = ['p1', 'p2', 'p3'];
     keys.forEach(k => {
         const p = phaseState[k];
@@ -53,6 +52,9 @@ function openAdminDashboard() {
         document.getElementById(`edit-${k}-end`).value = p.end || '';
     });
 
+    if (typeof syncDataFromSpreadsheet === 'function') {
+        await syncDataFromSpreadsheet();
+    }
     renderRegistrantsTable();
     document.getElementById('admin-dashboard-modal').classList.remove('hidden');
 }
@@ -83,6 +85,16 @@ function approveRegistrant(id) {
     r.status = 'approved';
     localStorage.setItem('cyberfest_registrants', JSON.stringify(registrantsData));
     
+    // Sync status approval ke Spreadsheet
+    if (APP_CONFIG.scriptUrl) {
+        fetch(APP_CONFIG.scriptUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'updateStatus', payload: { id: id, status: 'approved' } })
+        }).catch(err => console.error('Gagal update ke Spreadsheet:', err));
+    }
+
     showToast('E-Ticket Terkirim!', `Pendaftaran ${r.name} disetujui. E-Ticket resmi telah dikirim ke ${r.email}`);
     renderRegistrantsTable();
 }
@@ -204,6 +216,17 @@ function renderRegistrantsTable() {
 function deleteRegistrant(id) {
     registrantsData = registrantsData.filter(item => item.id !== id);
     localStorage.setItem('cyberfest_registrants', JSON.stringify(registrantsData));
+
+    // Sync penghapusan ke Spreadsheet
+    if (APP_CONFIG.scriptUrl) {
+        fetch(APP_CONFIG.scriptUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'deleteRegistrant', payload: { id: id } })
+        }).catch(err => console.error('Gagal hapus dari Spreadsheet:', err));
+    }
+
     renderRegistrantsTable();
 }
 
