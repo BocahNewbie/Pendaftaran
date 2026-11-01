@@ -14,20 +14,45 @@ let adminData = {
     ]
 };
 
-// Open & Close Admin Modal
-function openAdminLoginModal() {
-    const modal = document.getElementById('admin-login-modal');
-    if (modal) modal.classList.remove('hidden');
-}
-
+// Function untuk menutup Modal Login Admin sekaligus membersihkan input
 function closeAdminLoginModal() {
     const modal = document.getElementById('admin-login-modal');
     if (modal) modal.classList.add('hidden');
+    
+    // Clear bidang input username dan password
+    const userEl = document.getElementById('admin-user');
+    const passEl = document.getElementById('admin-pass');
+    const errEl = document.getElementById('admin-error-msg');
+    
+    if (userEl) userEl.value = '';
+    if (passEl) passEl.value = '';
+    if (errEl) errEl.classList.add('hidden');
 }
 
-function closeAdminDashboard() {
-    const modal = document.getElementById('admin-dashboard-modal');
-    if (modal) modal.classList.add('hidden');
+// Authentication Login Admin
+function handleAdminLogin(e) {
+    e.preventDefault();
+    const userEl = document.getElementById('admin-user');
+    const passEl = document.getElementById('admin-pass');
+    const user = userEl ? userEl.value : '';
+    const pass = passEl ? passEl.value : '';
+
+    if (user === 'admin' && pass === 'cyber2026') {
+        // Reset/Kosongkan form sebelum menutup modal
+        if (userEl) userEl.value = '';
+        if (passEl) passEl.value = '';
+        
+        closeAdminLoginModal();
+        
+        const dash = document.getElementById('admin-dashboard-modal');
+        if (dash) {
+            dash.classList.remove('hidden');
+            initAdminDashboard();
+        }
+    } else {
+        const err = document.getElementById('admin-error-msg');
+        if (err) err.classList.remove('hidden');
+    }
 }
 
 // Authentication Login Admin
