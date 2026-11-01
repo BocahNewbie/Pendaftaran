@@ -7,7 +7,7 @@ const APP_CONFIG = {
     brandYear: "2026",
     
     // Paste URL Web App dari Apps Script kamu di sini
-    scriptUrl: "https://script.google.com/macros/s/AKfyeby259rebuyxUsLbJ72A6KsgkB0kz_-npUwXRsghsMmMEv6c01zQogxHTO-AoxjfifJ2og/exec",
+    scriptUrl: "https://script.google.com/macros/s/AKfycbxqQQFy91nmeZtAyOP2hMPwaXeLh4hVRHjNSbS9I9FUd7daXTyHTnZByNk1xPQgiYI9JA/exec",
     
     adminAuth: {
         username: "admin",
