@@ -3,67 +3,52 @@
  */
 
 let phaseState = JSON.parse(localStorage.getItem('cyberfest_phase_state')) || {
-    p1: { 
-        name: 'Early Bird Access', 
-        price: 'Rp 99.000', 
-        filled: 44, 
-        total: 50, 
-        open: true, 
-        start: '2026-10-01T00:00', 
-        end: '2026-11-10T23:59' 
-    },
-    p2: { 
-        name: 'Regular Pass', 
-        price: 'Rp 175.000', 
-        filled: 55, 
-        total: 100, 
-        open: true, 
-        start: '2026-10-01T00:00', 
-        end: '2026-11-20T23:59' 
-    },
-    p3: { 
-        name: 'VIP & Final On-Spot', 
-        price: 'Rp 299.000', 
-        filled: 12, 
-        total: 30, 
-        open: true, 
-        start: '2026-10-01T00:00', 
-        end: '2026-11-25T23:59' 
-    }
+    p1: { name: 'Early Bird Access', price: 'Rp 99.000', filled: 44, total: 50, open: true, start: '2026-10-01T00:00', end: '2026-11-10T23:59' },
+    p2: { name: 'Regular Pass', price: 'Rp 175.000', filled: 55, total: 100, open: true, start: '2026-10-01T00:00', end: '2026-11-20T23:59' },
+    p3: { name: 'VIP & Final On-Spot', price: 'Rp 299.000', filled: 12, total: 30, open: true, start: '2026-10-01T00:00', end: '2026-11-25T23:59' }
 };
 
-let registrantsData = JSON.parse(localStorage.getItem('cyberfest_registrants')) || [
-    { id: 1, regNo: 1, name: 'Ahmad Rizky', email: 'rizky@gmail.com', phone: '081234567891', phaseKey: 'p1', phase: 'Early Bird Access', category: 'Web Development & Design', date: '2026-11-01 10:30', status: 'approved' },
-    { id: 2, regNo: 2, name: 'Siti Aminah', email: 'siti@yahoo.com', phone: '085712349988', phaseKey: 'p2', phase: 'Regular Pass', category: 'UI/UX Innovation', date: '2026-11-01 11:15', status: 'pending' }
-];
-
+let registrantsData = JSON.parse(localStorage.getItem('cyberfest_registrants')) || [];
 let selectedPhaseKey = 'p1';
 let currentRegistrationForPay = null;
 
-// Initialize Dynamic HTML Data from config.js
+// Ambil data live dari Google Sheets saat aplikasi pertama dibuka
+async function syncDataFromSpreadsheet() {
+    if (!APP_CONFIG.scriptUrl) return;
+    try {
+        const response = await fetch(APP_CONFIG.scriptUrl);
+        const dataFromSheet = await response.json();
+        if (Array.isArray(dataFromSheet) && dataFromSheet.length > 0) {
+            registrantsData = dataFromSheet;
+            localStorage.setItem('cyberfest_registrants', JSON.stringify(registrantsData));
+            if (typeof renderRegistrantsTable === 'function') {
+                renderRegistrantsTable();
+            }
+        }
+    } catch (err) {
+        console.warn('Menggunakan cache local storage (Offline/Error Spreadsheet):', err);
+    }
+}
+
+// Initialize Dynamic HTML Data
 function initAppFromConfig() {
-    // Brand titles
     document.getElementById('nav-brand-title').innerHTML = `${APP_CONFIG.brandName}<span class="text-neonCyan">${APP_CONFIG.brandYear}</span>`;
     document.getElementById('footer-brand-title').innerText = `${APP_CONFIG.brandName} ${APP_CONFIG.brandYear}`;
     document.getElementById('footer-copyright').innerHTML = `© ${APP_CONFIG.brandYear} ${APP_CONFIG.brandName}. All rights reserved.<br><span class="text-slate-400">Designed with Neon Glow & Parallax Effect</span>`;
 
-    // Event Info Badges
     document.getElementById('info-event-date').innerText = APP_CONFIG.eventInfo.date;
     document.getElementById('info-event-location').innerText = APP_CONFIG.eventInfo.location;
     document.getElementById('info-event-prizepool').innerText = APP_CONFIG.eventInfo.prizePool;
     document.getElementById('info-event-target').innerText = APP_CONFIG.eventInfo.targetParticipants;
 
-    // Categories in Modal Form
     const categorySelect = document.getElementById('reg-category');
     if (categorySelect) {
         categorySelect.innerHTML = APP_CONFIG.competitionCategories.map(c => `<option>${c}</option>`).join('');
     }
 
-    // Panitia Section
     document.getElementById('panitia-message').innerText = APP_CONFIG.panitiaSection.message;
     document.getElementById('panitia-signature').innerText = APP_CONFIG.panitiaSection.signature;
 
-    // Render FAQ Accordion
     const faqContainer = document.getElementById('faq-container');
     if (faqContainer) {
         faqContainer.innerHTML = APP_CONFIG.faqItems.map(item => `
@@ -72,14 +57,11 @@ function initAppFromConfig() {
                     <span>${item.q}</span>
                     <span class="ml-2 text-neonCyan transition-transform group-open:rotate-180">▼</span>
                 </summary>
-                <p class="mt-3 text-sm text-slate-400 leading-relaxed border-t border-slate-800/60 pt-3">
-                    ${item.a}
-                </p>
+                <p class="mt-3 text-sm text-slate-400 leading-relaxed border-t border-slate-800/60 pt-3">${item.a}</p>
             </details>
         `).join('');
     }
 
-    // Render Social Media Links
     const sosmedContainer = document.getElementById('sosmed-container');
     if (sosmedContainer) {
         sosmedContainer.innerHTML = APP_CONFIG.sosmedLinks.map(s => `
@@ -93,7 +75,6 @@ function initAppFromConfig() {
         `).join('');
     }
 
-    // Render Sponsors
     const sponsorContainer = document.getElementById('sponsor-container');
     if (sponsorContainer) {
         sponsorContainer.innerHTML = APP_CONFIG.sponsors.map(sp => `
@@ -104,14 +85,13 @@ function initAppFromConfig() {
     updateSlotUI();
     initCountdown();
     initParallax();
+    syncDataFromSpreadsheet();
 }
 
-// Mobile Menu Handler
 document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
     document.getElementById('mobile-menu').classList.toggle('hidden');
 });
 
-// Check Phase Availability
 function isPhaseAvailable(key) {
     const p = phaseState[key];
     if (!p.open) return { available: false, reason: 'Pendaftaran Ditutup' };
@@ -137,7 +117,6 @@ function formatDateRange(startStr, endStr) {
 
 function updateSlotUI() {
     const keys = ['p1', 'p2', 'p3'];
-    
     keys.forEach((key, i) => {
         const idx = i + 1;
         const p = phaseState[key];
@@ -169,7 +148,6 @@ function updateSlotUI() {
     localStorage.setItem('cyberfest_phase_state', JSON.stringify(phaseState));
 }
 
-// Trigger Modal Pendaftaran
 function triggerRegistration(key) {
     const status = isPhaseAvailable(key);
     if (!status.available) {
@@ -186,7 +164,7 @@ function closeRegisterModal() {
     document.getElementById('register-modal').classList.add('hidden');
 }
 
-// Form Submit Handler
+// Handle Form Submit & Kirim ke Spreadsheet
 function handleFormSubmit(event) {
     event.preventDefault();
 
@@ -196,7 +174,6 @@ function handleFormSubmit(event) {
     const category = document.getElementById('reg-category').value;
 
     const nextRegNo = registrantsData.length > 0 ? Math.max(...registrantsData.map(r => r.regNo || 0)) + 1 : 1;
-
     phaseState[selectedPhaseKey].filled++;
 
     const newEntry = {
@@ -213,8 +190,19 @@ function handleFormSubmit(event) {
         status: 'pending'
     };
 
+    // 1. Simpan Lokal
     registrantsData.push(newEntry);
     localStorage.setItem('cyberfest_registrants', JSON.stringify(registrantsData));
+
+    // 2. Kirim ke Google Spreadsheet via Web App
+    if (APP_CONFIG.scriptUrl) {
+        fetch(APP_CONFIG.scriptUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'addRegistrant', payload: newEntry })
+        }).catch(err => console.error('Gagal sync ke Spreadsheet:', err));
+    }
 
     updateSlotUI();
     closeRegisterModal();
@@ -224,7 +212,6 @@ function handleFormSubmit(event) {
     event.target.reset();
 }
 
-// Payment & QR Code Modal
 function openPaymentModal(registrant) {
     currentRegistrationForPay = registrant;
     const regNoFormatted = `#${String(registrant.regNo).padStart(3, '0')}`;
@@ -257,7 +244,6 @@ function openWhatsAppConfirmation() {
     window.open(waUrl, '_blank');
 }
 
-// E-Ticket View Modal
 function viewEticket(id) {
     const r = registrantsData.find(item => item.id === id);
     if (!r) return;
@@ -278,7 +264,6 @@ function closeEticketModal() {
     document.getElementById('eticket-modal').classList.add('hidden');
 }
 
-// Toast Helper
 function showToast(title, desc) {
     const toast = document.getElementById('success-toast');
     document.getElementById('toast-title').innerText = title;
@@ -287,7 +272,6 @@ function showToast(title, desc) {
     setTimeout(() => toast.classList.add('hidden'), 5000);
 }
 
-// Parallax Effect Logic
 function initParallax() {
     window.addEventListener('scroll', () => {
         const scrolled = window.scrollY;
@@ -300,10 +284,8 @@ function initParallax() {
     });
 }
 
-// Countdown Timer Logic
 function initCountdown() {
     const targetDate = new Date(APP_CONFIG.eventInfo.countdownTarget).getTime();
-    
     function updateTimer() {
         const now = new Date().getTime();
         const diff = targetDate - now;
