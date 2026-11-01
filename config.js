@@ -29,21 +29,22 @@ const APP_CONFIG = {
         "AI Solution & Data Science"
     ],
 
-    // Tailwind Color Tokens
+    // Tailwind Color Tokens - Theme Soft Pastel & Neon Stabilo
     tailwindTheme: {
         theme: {
             extend: {
                 colors: {
-                    darkbg: '#070a13',
-                    cardbg: 'rgba(15, 23, 42, 0.75)',
-                    neonCyan: '#00f3ff',
-                    neonPurple: '#b026ff',
-                    neonGreen: '#00ff88',
+                    darkbg: '#f0f4f8',        // Background Soft Pastel Grey-Blue
+                    cardbg: '#008b8b',        // Card Cyan Tegas (Dark Cyan/Teal)
+                    pastelCard: '#e6f4f1',    // Card Pastel Sekunder
+                    neonCyan: '#00e5ff',      // Cyan Tegas Accent
+                    neonPurple: '#d8b4fe',    // Purple Soft Pastel
+                    neonGreen: '#ccff00',     // Neon Hijau Stabilo / Lime
                 },
                 boxShadow: {
-                    'neon-cyan': '0 0 15px rgba(0, 243, 255, 0.4), 0 0 30px rgba(0, 243, 255, 0.15)',
-                    'neon-purple': '0 0 15px rgba(176, 38, 255, 0.4), 0 0 30px rgba(176, 38, 255, 0.15)',
-                    'neon-green': '0 0 15px rgba(0, 255, 136, 0.4), 0 0 30px rgba(0, 255, 136, 0.15)',
+                    'neon-cyan': '0 0 15px rgba(0, 229, 255, 0.5), 0 0 30px rgba(0, 229, 255, 0.2)',
+                    'neon-purple': '0 0 15px rgba(216, 180, 254, 0.4)',
+                    'neon-green': '0 0 18px rgba(204, 255, 0, 0.7), 0 0 35px rgba(204, 255, 0, 0.3)',
                 }
             }
         }
