@@ -29,6 +29,7 @@ const APP_CONFIG = {
         "AI Solution & Data Science"
     ],
 
+    // Tailwind Color Tokens
     tailwindTheme: {
         theme: {
             extend: {
