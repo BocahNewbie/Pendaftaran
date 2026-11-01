@@ -1,34 +1,24 @@
-/**
- * CYBERFEST 2026 - Central Web Configuration
- * Tempat pengeditan mudah untuk teks, sosial media, panitia, FAQ, dan sponsor.
- */
-
 const APP_CONFIG = {
-    // Brand Info
     brandName: "CYBERFEST",
     brandYear: "2026",
-    
-    // Admin Credentials (Bisa diubah di sini)
+    scriptUrl: "https://script.google.com/macros/s/AKfyeby259rebuyxUsLbJ72A6KsgkB0kz_-npUwXRsghsMmMEv6c01zQogxHTO-AoxjfifJ2og/exec", // URL Apps Script kamu
     adminAuth: {
         username: "admin",
-        password: "cyber2026"
+        password: "password123"
     },
-
-    // Informasi Event Hero Section
     eventInfo: {
-        date: "25-27 NOV 2026",
-        location: "JAKARTA",
-        prizePool: "Rp 75 JT+",
-        targetParticipants: "1.500+",
-        countdownTarget: "2026-11-10T23:59:59", // Tanggal hitung mundur
-        panitiaWhatsapp: "6281234567890" // Nomor WA Panitia Konfirmasi
+        date: "25 - 27 November 2026",
+        location: "Convention Hall Ciamis",
+        prizePool: "Rp 50.000.000",
+        targetParticipants: "500+ Peserta",
+        countdownTarget: "2026-11-25T09:00:00",
+        panitiaWhatsapp: "628123456789"
     },
-
-    // Dynamic Categories for Form Registration
     competitionCategories: [
         "Web Development & Design",
         "UI/UX Innovation",
-        "AI Solution & Data Science"
+        "Cyber Security Capture The Flag",
+        "AI Application Challenge"
     ],
 
     // Tailwind Color Tokens
