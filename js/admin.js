@@ -14,12 +14,17 @@ let adminData = {
     ]
 };
 
-// Function untuk menutup Modal Login Admin sekaligus membersihkan input
+// Open & Close Admin Modal
+function openAdminLoginModal() {
+    const modal = document.getElementById('admin-login-modal');
+    if (modal) modal.classList.remove('hidden');
+}
+
+// Function untuk menutup Modal Login Admin sekaligus membersihkan input username & password
 function closeAdminLoginModal() {
     const modal = document.getElementById('admin-login-modal');
     if (modal) modal.classList.add('hidden');
     
-    // Clear bidang input username dan password
     const userEl = document.getElementById('admin-user');
     const passEl = document.getElementById('admin-pass');
     const errEl = document.getElementById('admin-error-msg');
@@ -29,7 +34,12 @@ function closeAdminLoginModal() {
     if (errEl) errEl.classList.add('hidden');
 }
 
-// Authentication Login Admin
+function closeAdminDashboard() {
+    const modal = document.getElementById('admin-dashboard-modal');
+    if (modal) modal.classList.add('hidden');
+}
+
+// Authentication Login Admin (Single Clean Handler)
 function handleAdminLogin(e) {
     e.preventDefault();
     const userEl = document.getElementById('admin-user');
@@ -38,31 +48,12 @@ function handleAdminLogin(e) {
     const pass = passEl ? passEl.value : '';
 
     if (user === 'admin' && pass === 'cyber2026') {
-        // Reset/Kosongkan form sebelum menutup modal
+        // Reset/Kosongkan form input sebelum menutup modal
         if (userEl) userEl.value = '';
         if (passEl) passEl.value = '';
         
         closeAdminLoginModal();
         
-        const dash = document.getElementById('admin-dashboard-modal');
-        if (dash) {
-            dash.classList.remove('hidden');
-            initAdminDashboard();
-        }
-    } else {
-        const err = document.getElementById('admin-error-msg');
-        if (err) err.classList.remove('hidden');
-    }
-}
-
-// Authentication Login Admin
-function handleAdminLogin(e) {
-    e.preventDefault();
-    const user = document.getElementById('admin-user').value;
-    const pass = document.getElementById('admin-pass').value;
-
-    if (user === 'admin' && pass === 'cyber2026') {
-        closeAdminLoginModal();
         const dash = document.getElementById('admin-dashboard-modal');
         if (dash) {
             dash.classList.remove('hidden');
@@ -108,11 +99,11 @@ function switchAdminTab(tabName) {
     const btnApproved = document.getElementById('tab-btn-approved');
 
     if (tabName === 'pending') {
-        btnPending.className = "px-4 py-2 rounded-lg text-xs font-bold transition-all bg-neonCyan text-slate-950 shadow-neon-cyan flex items-center gap-1.5";
-        btnApproved.className = "px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all flex items-center gap-1.5";
+        if (btnPending) btnPending.className = "px-4 py-2 rounded-lg text-xs font-bold transition-all bg-neonCyan text-slate-950 shadow-neon-cyan flex items-center gap-1.5";
+        if (btnApproved) btnApproved.className = "px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all flex items-center gap-1.5";
     } else {
-        btnApproved.className = "px-4 py-2 rounded-lg text-xs font-bold transition-all bg-neonCyan text-slate-950 shadow-neon-cyan flex items-center gap-1.5";
-        btnPending.className = "px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all flex items-center gap-1.5";
+        if (btnApproved) btnApproved.className = "px-4 py-2 rounded-lg text-xs font-bold transition-all bg-neonCyan text-slate-950 shadow-neon-cyan flex items-center gap-1.5";
+        if (btnPending) btnPending.className = "px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all flex items-center gap-1.5";
     }
 
     renderRegistrantsTable();
@@ -169,7 +160,9 @@ function renderRegistrantsTable() {
         </tr>
     `).join('');
 
-    if (window.lucide) lucide.createIcons();
+    if (window.lucide && typeof lucide.createIcons === 'function') {
+        lucide.createIcons();
+    }
 }
 
 // Verifikasi Pembayaran Peserta
@@ -211,7 +204,7 @@ function updatePhaseSlotsFromAdmin() {
 
 // Export Data Peserta ke File CSV (Excel)
 function downloadCSV() {
-    if (adminData.registrants.length === 0) {
+    if (!adminData.registrants || adminData.registrants.length === 0) {
         alert("Belum ada data peserta untuk diunduh.");
         return;
     }
