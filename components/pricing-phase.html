@@ -1,0 +1,133 @@
+<section id="pendaftaran" class="py-24 bg-slate-950/60 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <span class="text-neonCyan font-mono text-sm tracking-widest uppercase">Gelombang Pendaftaran</span>
+            <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-2 mb-4">Pilih Phase Registrasi</h2>
+            <p class="text-slate-400 max-w-2xl mx-auto">
+                Amankan tiket kamu sekarang sebelum kuota peserta pada setiap phase habis!
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Phase 1 Card -->
+            <div class="glass-card rounded-2xl p-8 flex flex-col justify-between glass-card-hover relative overflow-hidden border border-neonCyan/30">
+                <div id="phase1-badge" class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold bg-neonCyan/20 text-neonCyan border border-neonCyan/40">EARLY BIRD</div>
+                <div>
+                    <div class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">Phase 1</div>
+                    <h3 id="phase1-title-display" class="text-2xl font-bold text-white mb-2">Early Bird Access</h3>
+                    <p class="text-xs text-slate-400 mb-6">Cocok untuk pendaftar awal yang ingin kuota hemat.</p>
+                    
+                    <div class="mb-4">
+                        <span id="phase1-price-display" class="text-4xl font-extrabold text-neonCyan">Rp 99.000</span>
+                    </div>
+
+                    <div id="phase1-schedule-display" class="text-[11px] text-slate-400 mb-6 flex items-center gap-1.5">
+                        <i data-lucide="clock" class="w-3.5 h-3.5 text-neonCyan"></i>
+                        <span id="phase1-schedule-text">Buka s/d 10 Nov 2026</span>
+                    </div>
+
+                    <div class="mb-6 p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+                        <div class="flex justify-between text-xs font-semibold mb-2">
+                            <span class="text-slate-300">Sisa Kuota Slot:</span>
+                            <span id="phase1-slot-text" class="text-neonCyan">12 Slot Tersisa</span>
+                        </div>
+                        <div class="w-full bg-slate-800 rounded-full h-2.5">
+                            <div id="phase1-progress" class="bg-neonCyan h-2.5 rounded-full shadow-neon-cyan" style="width: 88%"></div>
+                        </div>
+                        <div id="phase1-detail-text" class="text-[10px] text-slate-400 mt-1.5 text-right">88% Terisi (44/50 Slot)</div>
+                    </div>
+
+                    <ul class="space-y-3 text-sm text-slate-300 mb-8">
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> Akses Seluruh Sesi Webinar</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> E-Sertifikat Tingkat Nasional</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> Starter Kit Digital</li>
+                    </ul>
+                </div>
+
+                <button id="btn-phase-1" onclick="triggerRegistration('p1')" class="w-full py-3.5 rounded-xl font-bold text-slate-950 bg-neonCyan hover:bg-cyan-300 shadow-neon-cyan transition-all text-center">
+                    Pilih Phase 1 & Daftar
+                </button>
+            </div>
+
+            <!-- Phase 2 Card -->
+            <div class="glass-card rounded-2xl p-8 flex flex-col justify-between glass-card-hover relative overflow-hidden border-2 border-neonPurple shadow-neon-purple scale-100 lg:-translate-y-2">
+                <div id="phase2-badge" class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold bg-neonPurple/30 text-neonPurple border border-neonPurple">PALING POPULER</div>
+                <div>
+                    <div class="text-sm font-semibold text-neonPurple uppercase tracking-wider mb-2">Phase 2</div>
+                    <h3 id="phase2-title-display" class="text-2xl font-bold text-white mb-2">Regular Pass</h3>
+                    <p class="text-xs text-slate-400 mb-6">Fasilitas penuh untuk pejuang kompetisi.</p>
+                    
+                    <div class="mb-4">
+                        <span id="phase2-price-display" class="text-4xl font-extrabold text-neonPurple">Rp 175.000</span>
+                    </div>
+
+                    <div id="phase2-schedule-display" class="text-[11px] text-slate-400 mb-6 flex items-center gap-1.5">
+                        <i data-lucide="clock" class="w-3.5 h-3.5 text-neonPurple"></i>
+                        <span id="phase2-schedule-text">Buka s/d 20 Nov 2026</span>
+                    </div>
+
+                    <div class="mb-6 p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+                        <div class="flex justify-between text-xs font-semibold mb-2">
+                            <span class="text-slate-300">Sisa Kuota Slot:</span>
+                            <span id="phase2-slot-text" class="text-neonPurple">45 Slot Tersisa</span>
+                        </div>
+                        <div class="w-full bg-slate-800 rounded-full h-2.5">
+                            <div id="phase2-progress" class="bg-neonPurple h-2.5 rounded-full shadow-neon-purple" style="width: 55%"></div>
+                        </div>
+                        <div id="phase2-detail-text" class="text-[10px] text-slate-400 mt-1.5 text-right">55% Terisi (55/100 Slot)</div>
+                    </div>
+
+                    <ul class="space-y-3 text-sm text-slate-300 mb-8">
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonPurple"></i> Semua Benefit Phase 1</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonPurple"></i> Sesi Mentoring 1-on-1 Eksklusif</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonPurple"></i> Merchandise Kit Fisik</li>
+                    </ul>
+                </div>
+
+                <button id="btn-phase-2" onclick="triggerRegistration('p2')" class="w-full py-3.5 rounded-xl font-bold text-white bg-neonPurple hover:bg-purple-600 shadow-neon-purple transition-all text-center">
+                    Pilih Phase 2 & Daftar
+                </button>
+            </div>
+
+            <!-- Phase 3 Card -->
+            <div class="glass-card rounded-2xl p-8 flex flex-col justify-between glass-card-hover relative overflow-hidden border border-neonGreen/30">
+                <div id="phase3-badge" class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold bg-neonGreen/20 text-neonGreen border border-neonGreen/40">VIP ACCESS</div>
+                <div>
+                    <div class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">Phase 3</div>
+                    <h3 id="phase3-title-display" class="text-2xl font-bold text-white mb-2">VIP & Final On-Spot</h3>
+                    <p class="text-xs text-slate-400 mb-6">Akses prioritas penuh dan Networking Dinner.</p>
+                    
+                    <div class="mb-4">
+                        <span id="phase3-price-display" class="text-4xl font-extrabold text-neonGreen">Rp 299.000</span>
+                    </div>
+
+                    <div id="phase3-schedule-display" class="text-[11px] text-slate-400 mb-6 flex items-center gap-1.5">
+                        <i data-lucide="clock" class="w-3.5 h-3.5 text-neonGreen"></i>
+                        <span id="phase3-schedule-text">Buka s/d 25 Nov 2026</span>
+                    </div>
+
+                    <div class="mb-6 p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+                        <div class="flex justify-between text-xs font-semibold mb-2">
+                            <span class="text-slate-300">Sisa Kuota Slot:</span>
+                            <span id="phase3-slot-text" class="text-neonGreen">18 Slot Tersisa</span>
+                        </div>
+                        <div class="w-full bg-slate-800 rounded-full h-2.5">
+                            <div id="phase3-progress" class="bg-neonGreen h-2.5 rounded-full shadow-neon-green" style="width: 40%"></div>
+                        </div>
+                        <div id="phase3-detail-text" class="text-[10px] text-slate-400 mt-1.5 text-right">40% Terisi (12/30 Slot)</div>
+                    </div>
+
+                    <ul class="space-y-3 text-sm text-slate-300 mb-8">
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonGreen"></i> Semua Fasilitas Phase 1 & 2</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonGreen"></i> VIP Gala Dinner & Networking</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonGreen"></i> Front-row Seat Event Grand Final</li>
+                    </ul>
+                </div>
+
+                <button id="btn-phase-3" onclick="triggerRegistration('p3')" class="w-full py-3.5 rounded-xl font-bold text-slate-950 bg-neonGreen hover:bg-emerald-400 shadow-neon-green transition-all text-center">
+                    Pilih Phase 3 & Daftar
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
