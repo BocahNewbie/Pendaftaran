@@ -28,7 +28,7 @@
         <div id="tujuan-component"></div>
         <div id="hadiah-component"></div>
         
-        <!-- Dynamic Dynamic Content Sections -->
+        <!-- Dynamic Content Sections -->
         <section class="py-20 max-w-4xl mx-auto px-4">
             <div class="text-center mb-12">
                 <span class="text-neonCyan font-mono text-xs uppercase tracking-widest">Pusat Informasi</span>
@@ -65,8 +65,14 @@
     <script>
         // Helper untuk me-load komponen HTML secara modular
         async function loadComponent(id, file) {
-            const res = await fetch(`components/${file}`);
-            document.getElementById(id).innerHTML = await res.text();
+            try {
+                const res = await fetch(`components/${file}`);
+                if (res.ok) {
+                    document.getElementById(id).innerHTML = await res.text();
+                }
+            } catch (err) {
+                console.error(`Gagal memuat komponen: components/${file}`, err);
+            }
         }
 
         document.addEventListener("DOMContentLoaded", async () => {
@@ -74,14 +80,20 @@
             await Promise.all([
                 loadComponent('navbar-component', 'navbar.html'),
                 loadComponent('hero-component', 'hero.html'),
+                loadComponent('deskripsi-component', 'deskripsi.html'),
                 loadComponent('phases-component', 'pricing-phases.html'),
+                loadComponent('tujuan-component', 'tujuan.html'),
+                loadComponent('hadiah-component', 'hadiah.html'),
+                loadComponent('panitia-component', 'panitia.html'),
                 loadComponent('footer-component', 'footer.html'),
                 loadComponent('modals-component', 'modals.html')
             ]);
 
             // Inisialisasi App & Icons setelah semua komponen HTML terpasang
-            initAppFromConfig();
-            if (window.lucide) {
+            if (typeof initAppFromConfig === 'function') {
+                initAppFromConfig();
+            }
+            if (window.lucide && typeof lucide.createIcons === 'function') {
                 lucide.createIcons();
             }
         });
