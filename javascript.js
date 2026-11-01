@@ -12,25 +12,28 @@ let registrantsData = JSON.parse(localStorage.getItem('cyberfest_registrants')) 
 let selectedPhaseKey = 'p1';
 let currentRegistrationForPay = null;
 
-// Ambil data live dari Google Sheets saat aplikasi pertama dibuka
+// Sinkronisasi data live dari Google Spreadsheet saat web dibuka
 async function syncDataFromSpreadsheet() {
     if (!APP_CONFIG.scriptUrl) return;
     try {
         const response = await fetch(APP_CONFIG.scriptUrl);
         const dataFromSheet = await response.json();
         if (Array.isArray(dataFromSheet) && dataFromSheet.length > 0) {
-            registrantsData = dataFromSheet;
+            registrantsData = dataFromSheet.map(item => ({
+                ...item,
+                id: Number(item.id),
+                regNo: Number(item.regNo)
+            }));
             localStorage.setItem('cyberfest_registrants', JSON.stringify(registrantsData));
             if (typeof renderRegistrantsTable === 'function') {
                 renderRegistrantsTable();
             }
         }
     } catch (err) {
-        console.warn('Menggunakan cache local storage (Offline/Error Spreadsheet):', err);
+        console.warn('Menggunakan data local storage (Spreadsheet offline/error):', err);
     }
 }
 
-// Initialize Dynamic HTML Data
 function initAppFromConfig() {
     document.getElementById('nav-brand-title').innerHTML = `${APP_CONFIG.brandName}<span class="text-neonCyan">${APP_CONFIG.brandYear}</span>`;
     document.getElementById('footer-brand-title').innerText = `${APP_CONFIG.brandName} ${APP_CONFIG.brandYear}`;
@@ -164,7 +167,6 @@ function closeRegisterModal() {
     document.getElementById('register-modal').classList.add('hidden');
 }
 
-// Handle Form Submit & Kirim ke Spreadsheet
 function handleFormSubmit(event) {
     event.preventDefault();
 
@@ -190,11 +192,11 @@ function handleFormSubmit(event) {
         status: 'pending'
     };
 
-    // 1. Simpan Lokal
+    // 1. Simpan ke local storage
     registrantsData.push(newEntry);
     localStorage.setItem('cyberfest_registrants', JSON.stringify(registrantsData));
 
-    // 2. Kirim ke Google Spreadsheet via Web App
+    // 2. Kirim ke Google Spreadsheet via Apps Script
     if (APP_CONFIG.scriptUrl) {
         fetch(APP_CONFIG.scriptUrl, {
             method: 'POST',
