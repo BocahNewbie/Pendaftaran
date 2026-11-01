@@ -13,7 +13,9 @@
     <!-- Config script -->
     <script src="config.js"></script>
     <script>
-        tailwind.config = APP_CONFIG.tailwindTheme;
+        if (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.tailwindTheme) {
+            tailwind.config = APP_CONFIG.tailwindTheme;
+        }
     </script>
 </head>
 <body class="bg-darkbg text-slate-100 font-sans antialiased selection:bg-neonCyan selection:text-black overflow-x-hidden">
@@ -63,13 +65,12 @@
     <script src="js/admin.js"></script>
     
     <script>
-        // Helper untuk me-load komponen HTML secara modular
+        // Helper me-load komponen HTML secara modular
         async function loadComponent(id, file) {
             try {
                 const res = await fetch(`components/${file}`);
-                if (res.ok) {
-                    document.getElementById(id).innerHTML = await res.text();
-                }
+                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                document.getElementById(id).innerHTML = await res.text();
             } catch (err) {
                 console.error(`Gagal memuat komponen: components/${file}`, err);
             }
@@ -89,10 +90,18 @@
                 loadComponent('modals-component', 'modals.html')
             ]);
 
-            // Inisialisasi App & Icons setelah semua komponen HTML terpasang
+            // Inisialisasi data & event listener setelah DOM komponen terpasang
             if (typeof initAppFromConfig === 'function') {
                 initAppFromConfig();
             }
+
+            // Attach event listener ke Tombol Mobile Menu
+            const btnMobile = document.getElementById('mobile-menu-btn');
+            if (btnMobile) {
+                btnMobile.addEventListener('click', toggleMobileMenu);
+            }
+
+            // Render ulang ikon Lucide
             if (window.lucide && typeof lucide.createIcons === 'function') {
                 lucide.createIcons();
             }
