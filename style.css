@@ -1,35 +1,47 @@
-/* Glowing Text Effects */
-.text-glow-cyan { 
-    text-shadow: 0 0 10px rgba(0, 243, 255, 0.6), 0 0 20px rgba(0, 243, 255, 0.3); 
-}
-.text-glow-purple { 
-    text-shadow: 0 0 10px rgba(176, 38, 255, 0.6), 0 0 20px rgba(176, 38, 255, 0.3); 
-}
-.text-glow-green { 
-    text-shadow: 0 0 10px rgba(0, 255, 136, 0.6), 0 0 20px rgba(0, 255, 136, 0.3); 
+/* Custom Soft Pastel & Neon Stabilo Palette */
+
+/* Body & Background Soft Pastel */
+body {
+    background-color: #f0f4f8 !important;
+    color: #1e293b !important;
 }
 
-/* Glassmorphism Cards */
-.glass-card {
-    background: rgba(15, 23, 42, 0.75);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+/* Glowing Text Effects */
+.text-glow-cyan { 
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.5); 
 }
+.text-glow-purple { 
+    text-shadow: 0 0 10px rgba(216, 180, 254, 0.5); 
+}
+.text-glow-green { 
+    text-shadow: 0 0 12px rgba(204, 255, 0, 0.9), 0 0 25px rgba(204, 255, 0, 0.5); 
+    color: #ccff00 !important;
+}
+
+/* Glassmorphism Cards - Cyan Tegas & Pastel Contrast */
+.glass-card {
+    background: rgba(14, 116, 144, 0.92) !important; /* Cyan Tegas / Dark Cyan Solid */
+    backdrop-filter: blur(12px);
+    border: 2px solid rgba(0, 229, 255, 0.3) !important;
+    color: #ffffff !important;
+}
+
+/* Card Hover Animation */
 .glass-card-hover {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .glass-card-hover:hover {
-    border-color: rgba(0, 243, 255, 0.4);
-    box-shadow: 0 0 25px rgba(0, 243, 255, 0.2);
+    border-color: #ccff00 !important; /* Border berubah jadi Hijau Stabilo saat di-hover */
+    box-shadow: 0 0 25px rgba(204, 255, 0, 0.4) !important;
     transform: translateY(-6px);
 }
 
-/* Parallax Grid Background */
+/* Parallax Soft Grid Background */
 .bg-grid {
     background-size: 50px 50px;
     background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        linear-gradient(to right, rgba(148, 163, 184, 0.15) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148, 163, 184, 0.15) 1px, transparent 1px);
 }
 
 /* Custom Sleek Scrollbar */
@@ -37,12 +49,12 @@
     width: 8px;
 }
 ::-webkit-scrollbar-track {
-    background: #070a13;
+    background: #e2e8f0;
 }
 ::-webkit-scrollbar-thumb {
-    background: #1e293b;
+    background: #0e7490;
     border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #00f3ff;
+    background: #ccff00;
 }
