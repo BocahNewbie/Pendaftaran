@@ -85,7 +85,7 @@ function approveRegistrant(id) {
     r.status = 'approved';
     localStorage.setItem('cyberfest_registrants', JSON.stringify(registrantsData));
     
-    // Sync status approval ke Spreadsheet
+    // Sync status persetujuan ke Google Spreadsheet
     if (APP_CONFIG.scriptUrl) {
         fetch(APP_CONFIG.scriptUrl, {
             method: 'POST',
@@ -217,7 +217,7 @@ function deleteRegistrant(id) {
     registrantsData = registrantsData.filter(item => item.id !== id);
     localStorage.setItem('cyberfest_registrants', JSON.stringify(registrantsData));
 
-    // Sync penghapusan ke Spreadsheet
+    // Sync penghapusan ke Google Spreadsheet
     if (APP_CONFIG.scriptUrl) {
         fetch(APP_CONFIG.scriptUrl, {
             method: 'POST',
