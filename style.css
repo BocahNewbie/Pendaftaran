@@ -1,6 +1,12 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Import Tailwind CSS Directives */
+@import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+
+/* Background Utama Halaman */
+html, body {
+    background-color: #05070f !important;
+    color: #f1f5f9;
+    min-height: 100vh;
+}
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
@@ -25,10 +31,10 @@
 
 /* Glassmorphism Effect */
 .glass-card {
-    background: rgba(15, 23, 42, 0.75);
+    background: rgba(15, 23, 42, 0.85) !important;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .glass-card-hover {
@@ -37,7 +43,7 @@
 .glass-card-hover:hover {
     transform: translateY(-5px);
     border-color: rgba(0, 243, 255, 0.4);
-    box-shadow: 0 10px 30px -10px rgba(0, 243, 255, 0.2);
+    box-shadow: 0 10px 30px -10px rgba(0, 243, 255, 0.25);
 }
 
 /* Neon Text Glow Effects */
@@ -60,10 +66,4 @@
 }
 .shadow-neon-green {
     box-shadow: 0 0 20px rgba(16, 185, 129, 0.25), inset 0 0 15px rgba(16, 185, 129, 0.1);
-}
-
-/* Modal Backdrop Animations */
-.animate-in {
-    animation-duration: 0.25s;
-    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
