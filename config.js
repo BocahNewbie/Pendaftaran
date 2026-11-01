@@ -1,27 +1,34 @@
+/**
+ * CYBERFEST 2026 - Central Web Configuration
+ */
+
 const APP_CONFIG = {
     brandName: "CYBERFEST",
     brandYear: "2026",
-    scriptUrl: "https://script.google.com/macros/s/AKfyeby259rebuyxUsLbJ72A6KsgkB0kz_-npUwXRsghsMmMEv6c01zQogxHTO-AoxjfifJ2og/exec", // URL Apps Script kamu
+    
+    // Paste URL Web App dari Apps Script kamu di sini
+    scriptUrl: "https://script.google.com/macros/s/AKfyeby259rebuyxUsLbJ72A6KsgkB0kz_-npUwXRsghsMmMEv6c01zQogxHTO-AoxjfifJ2og/exec",
+    
     adminAuth: {
         username: "admin",
-        password: "password123"
+        password: "cyber2026"
     },
+
     eventInfo: {
-        date: "25 - 27 November 2026",
-        location: "Convention Hall Ciamis",
-        prizePool: "Rp 50.000.000",
-        targetParticipants: "500+ Peserta",
-        countdownTarget: "2026-11-25T09:00:00",
-        panitiaWhatsapp: "628123456789"
+        date: "25-27 NOV 2026",
+        location: "JAKARTA",
+        prizePool: "Rp 75 JT+",
+        targetParticipants: "1.500+",
+        countdownTarget: "2026-11-10T23:59:59",
+        panitiaWhatsapp: "6281234567890"
     },
+
     competitionCategories: [
         "Web Development & Design",
         "UI/UX Innovation",
-        "Cyber Security Capture The Flag",
-        "AI Application Challenge"
+        "AI Solution & Data Science"
     ],
 
-    // Tailwind Color Tokens
     tailwindTheme: {
         theme: {
             extend: {
@@ -41,7 +48,6 @@ const APP_CONFIG = {
         }
     },
 
-    // Data FAQ (Bisa ditambah/dikurangi dengan mudah)
     faqItems: [
         {
             q: "Apakah kompetisi ini terbuka untuk umum atau mahasiswa saja?",
@@ -57,7 +63,6 @@ const APP_CONFIG = {
         }
     ],
 
-    // Data Sosial Media & Komunitas
     sosmedLinks: [
         {
             name: "Instagram",
@@ -89,7 +94,6 @@ const APP_CONFIG = {
         }
     ],
 
-    // Data Sponsor & Partner (Bisa tambah/ubah nama di sini)
     sponsors: [
         { name: "NEXUS AI" },
         { name: "CLOUDIFY" },
@@ -99,7 +103,6 @@ const APP_CONFIG = {
         { name: "DATAWAVE" }
     ],
 
-    // Pesan Panitia Section
     panitiaSection: {
         message: `"Terima kasih atas antusiasme luar biasa dari seluruh calon peserta di seluruh Indonesia. Kami percaya bahwa setiap karya hebat dimulai dari satu langkah berani. Selamat berkompetisi, jaga semangat sportifitas, dan mari kita ciptakan inovasi terbaik bersama di CYBERFEST 2026!"`,
         signature: "— Panitia Pelaksana CYBERFEST 2026"
