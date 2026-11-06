@@ -4,9 +4,9 @@ const APP_CONFIG = {
         theme: {
             extend: {
                 colors: {
-                    darkbg: '#05070f',
-                    neonCyan: '#00f3ff',
-                    neonPurple: '#a855f7',
+                    darkbg: '#06100c',
+                    neonCyan: '#34d399',  // Di-mapping ke hijau pastel
+                    neonPurple: '#6ee7b7', // Di-mapping ke sage green
                     neonGreen: '#10b981'
                 }
             }
