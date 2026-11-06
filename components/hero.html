@@ -1,74 +1,77 @@
-<section class="relative min-h-[92vh] flex items-center justify-center overflow-hidden bg-grid py-12">
-    <!-- Neon Glowing Orbs -->
-    <div id="parallax-bg-1" class="absolute top-1/4 left-10 w-96 h-96 bg-neonCyan/15 rounded-full blur-[130px] pointer-events-none"></div>
-    <div id="parallax-bg-2" class="absolute bottom-10 right-10 w-96 h-96 bg-neonPurple/15 rounded-full blur-[130px] pointer-events-none"></div>
-    <div id="parallax-bg-3" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-neonGreen/10 rounded-full blur-[150px] pointer-events-none"></div>
+<section class="relative min-h-[92vh] flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#e6f4ea] to-[#d1fae5] py-12">
+    <!-- Ornamen Lingkaran Pastel Ceria -->
+    <div class="absolute top-1/4 left-10 w-96 h-96 bg-emerald-200/50 rounded-full blur-[100px] pointer-events-none"></div>
+    <div class="absolute bottom-10 right-10 w-96 h-96 bg-green-200/50 rounded-full blur-[100px] pointer-events-none"></div>
 
-    <div id="parallax-content" class="relative z-10 max-w-5xl mx-auto px-4 text-center">
-        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest bg-white text-emerald-700 border-2 border-emerald-300 mb-6 shadow-sm">
-    <i data-lucide="baby" class="w-4 h-4"></i> Festival & Perlombaan Si Kecil 2026
-</span>
-
-<h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6 leading-tight text-slate-900">
-    CERIA BERSAMA<br>
-    <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-green-500">
-        BABY PLAY DATE
-    </span>
-</h1>
-
-<p class="text-slate-700 text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed font-medium">
-    Daftarkan buah hati tercinta dalam keseruan Lomba Merangkak, Pindah Bola, dan Menyusun Puzzle. Raih jutaan rupiah dan hadiah menarik!
-</p>
+    <div class="relative z-10 max-w-5xl mx-auto px-4 text-center">
+        <!-- Badge Atas -->
+        <span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-extrabold uppercase tracking-widest bg-white text-emerald-800 border-2 border-emerald-300 mb-6 shadow-sm">
+            <i data-lucide="baby" class="w-4 h-4 text-emerald-600"></i> Festival & Perlombaan Si Kecil 2026
+        </span>
         
-        <!-- COUNTDOWN TIMER NEON -->
-        <div class="max-w-xl mx-auto mb-10 p-4 rounded-2xl glass-card border border-neonCyan/40 shadow-neon-cyan">
-            <div class="text-xs uppercase tracking-widest text-slate-400 font-semibold mb-3">Sisa Waktu Pendaftaran Early Bird</div>
-            <div class="grid grid-cols-4 gap-2 text-center">
-                <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-800">
-                    <div id="cd-days" class="text-2xl sm:text-3xl font-black text-neonCyan">00</div>
-                    <div class="text-[10px] text-slate-400 uppercase">Hari</div>
+        <!-- Judul Utama -->
+        <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6 leading-tight text-slate-900">
+            CERIA BERSAMA<br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-green-600">
+                BABY PLAY DATE
+            </span>
+        </h1>
+        
+        <!-- Deskripsi -->
+        <p class="text-slate-700 text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed font-semibold">
+            Daftarkan buah hati tercinta dalam keseruan Lomba Merangkak, Pindah Bola, dan Menyusun Puzzle. Raih jutaan rupiah dan hadiah menarik!
+        </p>
+        
+        <!-- Countdown Timer Ceria (Tanpa Kotak Gelap) -->
+        <div class="max-w-xl mx-auto mb-10 p-5 rounded-3xl bg-white border-2 border-emerald-200 shadow-xl shadow-emerald-500/10">
+            <div class="text-xs uppercase tracking-widest text-emerald-800 font-bold mb-3">Sisa Waktu Pendaftaran</div>
+            <div class="grid grid-cols-4 gap-3 text-center">
+                <div class="p-3 rounded-2xl bg-emerald-50 border border-emerald-200">
+                    <div id="cd-days" class="text-2xl sm:text-3xl font-black text-emerald-700">00</div>
+                    <div class="text-[10px] text-slate-600 uppercase font-bold">Hari</div>
                 </div>
-                <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-800">
-                    <div id="cd-hours" class="text-2xl sm:text-3xl font-black text-neonCyan">00</div>
-                    <div class="text-[10px] text-slate-400 uppercase">Jam</div>
+                <div class="p-3 rounded-2xl bg-emerald-50 border border-emerald-200">
+                    <div id="cd-hours" class="text-2xl sm:text-3xl font-black text-emerald-700">00</div>
+                    <div class="text-[10px] text-slate-600 uppercase font-bold">Jam</div>
                 </div>
-                <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-800">
-                    <div id="cd-minutes" class="text-2xl sm:text-3xl font-black text-neonCyan">00</div>
-                    <div class="text-[10px] text-slate-400 uppercase">Menit</div>
+                <div class="p-3 rounded-2xl bg-emerald-50 border border-emerald-200">
+                    <div id="cd-minutes" class="text-2xl sm:text-3xl font-black text-emerald-700">00</div>
+                    <div class="text-[10px] text-slate-600 uppercase font-bold">Menit</div>
                 </div>
-                <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-800">
-                    <div id="cd-seconds" class="text-2xl sm:text-3xl font-black text-neonCyan">00</div>
-                    <div class="text-[10px] text-slate-400 uppercase">Detik</div>
+                <div class="p-3 rounded-2xl bg-emerald-50 border border-emerald-200">
+                    <div id="cd-seconds" class="text-2xl sm:text-3xl font-black text-emerald-700">00</div>
+                    <div class="text-[10px] text-slate-600 uppercase font-bold">Detik</div>
                 </div>
             </div>
         </div>
 
+        <!-- Tombol Aksi -->
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
-            <a href="#pendaftaran" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-slate-950 bg-neonCyan hover:bg-cyan-300 shadow-neon-cyan transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2">
-                <i data-lucide="rocket" class="w-5 h-5"></i> Pilih Phase Pendaftaran
+            <a href="#pendaftaran" class="w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-lg shadow-emerald-600/30 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                <i data-lucide="rocket" class="w-5 h-5"></i> Pilih Kategori Lomba
             </a>
-            <a href="#deskripsi" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-slate-200 glass-card hover:border-neonPurple hover:text-neonPurple transition-all flex items-center justify-center gap-2">
+            <a href="#deskripsi" class="w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-emerald-800 bg-white border-2 border-emerald-300 hover:bg-emerald-50 transition-all flex items-center justify-center gap-2">
                 Pelajari Event <i data-lucide="arrow-down" class="w-5 h-5"></i>
             </a>
         </div>
 
-        <!-- Event Info Badges -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-6 border-t border-slate-800/80">
-            <div class="p-4 glass-card rounded-xl">
-                <div id="info-event-date" class="text-neonCyan font-bold text-xl sm:text-2xl">25-27 NOV</div>
-                <div class="text-slate-400 text-xs">Pelaksanaan Event</div>
+        <!-- Info Badges Bawah -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-6 border-t-2 border-emerald-200">
+            <div class="p-4 bg-white rounded-2xl border border-emerald-200 shadow-sm">
+                <div id="info-event-date" class="text-emerald-700 font-extrabold text-xl sm:text-2xl">25-27 NOV</div>
+                <div class="text-slate-600 text-xs font-semibold">Pelaksanaan Event</div>
             </div>
-            <div class="p-4 glass-card rounded-xl">
-                <div id="info-event-location" class="text-neonPurple font-bold text-xl sm:text-2xl">JAKARTA</div>
-                <div class="text-slate-400 text-xs">Hybrid / Convention</div>
+            <div class="p-4 bg-white rounded-2xl border border-emerald-200 shadow-sm">
+                <div id="info-event-location" class="text-emerald-700 font-extrabold text-xl sm:text-2xl">JAKARTA</div>
+                <div class="text-slate-600 text-xs font-semibold">Venue Utama</div>
             </div>
-            <div class="p-4 glass-card rounded-xl">
-                <div id="info-event-prizepool" class="text-neonGreen font-bold text-xl sm:text-2xl">Rp 75 JT+</div>
-                <div class="text-slate-400 text-xs">Total Hadiah</div>
+            <div class="p-4 bg-white rounded-2xl border border-emerald-200 shadow-sm">
+                <div id="info-event-prizepool" class="text-emerald-700 font-extrabold text-xl sm:text-2xl">Rp 75 JT+</div>
+                <div class="text-slate-600 text-xs font-semibold">Total Hadiah</div>
             </div>
-            <div class="p-4 glass-card rounded-xl">
-                <div id="info-event-target" class="text-white font-bold text-xl sm:text-2xl">1.500+</div>
-                <div class="text-slate-400 text-xs">Target Peserta</div>
+            <div class="p-4 bg-white rounded-2xl border border-emerald-200 shadow-sm">
+                <div id="info-event-target" class="text-emerald-700 font-extrabold text-xl sm:text-2xl">1.500+</div>
+                <div class="text-slate-600 text-xs font-semibold">Target Peserta</div>
             </div>
         </div>
     </div>
