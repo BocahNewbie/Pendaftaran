@@ -1,11 +1,20 @@
 /* Import Tailwind CSS Directives */
 @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
 
+:root {
+  --bg-primary: #06100c;       /* Deep Forest Green (Latar Belakang Utama) */
+  --bg-card: #0d1f18;         /* Kartu & Modal Glassmorphism */
+  --green-primary: #34d399;    /* Hijau Mint / Pastel Utama */
+  --green-light: #6ee7b7;      /* Sage Green Terang */
+  --green-glow: rgba(52, 211, 153, 0.25);
+}
+
 /* Background Utama Halaman */
 html, body {
-    background-color: #05070f !important;
-    color: #f1f5f9;
+    background-color: #06100c !important;
+    color: #ecfdf5;
     min-height: 100vh;
+    font-family: 'Inter', sans-serif;
 }
 
 /* Custom Scrollbar */
@@ -13,28 +22,28 @@ html, body {
     width: 8px;
 }
 ::-webkit-scrollbar-track {
-    background: #05070f;
+    background: #06100c;
 }
 ::-webkit-scrollbar-thumb {
-    background: #1e293b;
+    background: #133325;
     border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #00f3ff;
+    background: #34d399;
 }
 
-/* Background Grid Pattern */
+/* Background Grid Pattern Bernuansa Hijau */
 .bg-grid {
-    background-image: radial-gradient(rgba(0, 243, 255, 0.08) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(52, 211, 153, 0.08) 1px, transparent 1px);
     background-size: 32px 32px;
 }
 
 /* Glassmorphism Effect */
 .glass-card {
-    background: rgba(15, 23, 42, 0.85) !important;
+    background: rgba(13, 31, 24, 0.85) !important;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(52, 211, 153, 0.15);
 }
 
 .glass-card-hover {
@@ -42,28 +51,30 @@ html, body {
 }
 .glass-card-hover:hover {
     transform: translateY(-5px);
-    border-color: rgba(0, 243, 255, 0.4);
-    box-shadow: 0 10px 30px -10px rgba(0, 243, 255, 0.25);
+    border-color: rgba(52, 211, 153, 0.5);
+    box-shadow: 0 10px 30px -10px rgba(52, 211, 153, 0.25);
 }
 
-/* Neon Text Glow Effects */
-.text-glow-cyan {
-    text-shadow: 0 0 15px rgba(0, 243, 255, 0.6), 0 0 30px rgba(0, 243, 255, 0.2);
-}
-.text-glow-purple {
-    text-shadow: 0 0 15px rgba(168, 85, 247, 0.6), 0 0 30px rgba(168, 85, 247, 0.2);
-}
+/* Neon Text & Box Glow Effects (Green Aesthetic) */
 .text-glow-green {
-    text-shadow: 0 0 15px rgba(16, 185, 129, 0.6), 0 0 30px rgba(16, 185, 129, 0.2);
+    text-shadow: 0 0 15px rgba(52, 211, 153, 0.6), 0 0 30px rgba(52, 211, 153, 0.2);
 }
 
-/* Neon Box Shadows */
-.shadow-neon-cyan {
-    box-shadow: 0 0 20px rgba(0, 243, 255, 0.25), inset 0 0 15px rgba(0, 243, 255, 0.1);
-}
-.shadow-neon-purple {
-    box-shadow: 0 0 25px rgba(168, 85, 247, 0.3), inset 0 0 15px rgba(168, 85, 247, 0.15);
-}
 .shadow-neon-green {
-    box-shadow: 0 0 20px rgba(16, 185, 129, 0.25), inset 0 0 15px rgba(16, 185, 129, 0.1);
+    box-shadow: 0 0 20px rgba(52, 211, 153, 0.25), inset 0 0 15px rgba(52, 211, 153, 0.1);
+}
+
+/* Override Utility Kelas Lama agar Selaras dengan Hijau */
+.text-neonCyan, .text-neonPurple, .text-neonGreen {
+    color: #34d399 !important;
+}
+.bg-neonCyan, .bg-neonPurple, .bg-neonGreen {
+    background-color: #34d399 !important;
+}
+.border-neonCyan, .border-neonPurple, .border-neonGreen {
+    border-color: #34d399 !important;
+}
+.selection\:bg-neonCyan {
+    background-color: #34d399 !important;
+    color: #06100c !important;
 }
