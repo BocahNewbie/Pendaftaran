@@ -9,9 +9,9 @@ function triggerRegistration(phaseId) {
     if (modal) {
         modal.classList.remove('hidden');
         if (phaseTag) {
-            if (phaseId === 'p1') phaseTag.innerText = 'Phase 1 - Early Bird';
-            else if (phaseId === 'p2') phaseTag.innerText = 'Phase 2 - Regular Pass';
-            else if (phaseId === 'p3') phaseTag.innerText = 'Phase 3 - VIP Access';
+            if (phaseId === 'p1') phaseTag.innerText = 'Kategori: Bayi Merangkak';
+            else if (phaseId === 'p2') phaseTag.innerText = 'Kategori: Pindah Bola';
+            else if (phaseId === 'p3') phaseTag.innerText = 'Kategori: Menyusun Puzzle';
         }
     }
 }
@@ -46,17 +46,17 @@ function toggleMobileMenu() {
     }
 }
 
-// Inisialisasi Data dari config.js ke elemen DOM
+// Inisialisasi Data dari config.js
 function initAppFromConfig() {
     if (typeof APP_CONFIG === 'undefined') return;
 
     // Render Brand Title
     const brandTitle = document.getElementById('nav-brand-title');
     const footerBrand = document.getElementById('footer-brand-title');
-    if (brandTitle) brandTitle.innerText = APP_CONFIG.eventName || 'CYBERFEST 2026';
-    if (footerBrand) footerBrand.innerText = APP_CONFIG.eventName || 'CYBERFEST 2026';
+    if (brandTitle) brandTitle.innerText = APP_CONFIG.eventName || 'BABY PLAY DATE 2026';
+    if (footerBrand) footerBrand.innerText = APP_CONFIG.eventName || 'BABY PLAY DATE 2026';
 
-    // Populate Kategori Lomba pada Form
+    // Populate Kategori Lomba pada Form Pendaftaran
     const categorySelect = document.getElementById('reg-category');
     if (categorySelect && APP_CONFIG.categories) {
         categorySelect.innerHTML = APP_CONFIG.categories
@@ -64,32 +64,43 @@ function initAppFromConfig() {
             .join('');
     }
 
-    // Render FAQ
+    // Render FAQ (Dapat diedit langsung pada array 'faqs' di config.js)
     const faqContainer = document.getElementById('faq-container');
     if (faqContainer && APP_CONFIG.faqs) {
         faqContainer.innerHTML = APP_CONFIG.faqs.map(faq => `
-            <div class="glass-card p-5 rounded-xl border border-emerald-900/40">
-                <h4 class="font-bold text-white text-sm mb-2">${faq.q}</h4>
-                <p class="text-xs text-slate-300 leading-relaxed">${faq.a}</p>
+            <div class="glass-card p-5 rounded-xl border border-pink-500/20 hover:border-pink-500/50 transition-all">
+                <h4 class="font-bold text-pink-300 text-sm mb-2 flex items-center gap-2">
+                    <i data-lucide="help-circle" class="w-4 h-4"></i> ${faq.q}
+                </h4>
+                <p class="text-xs text-slate-300 leading-relaxed pl-6">${faq.a}</p>
             </div>
         `).join('');
     }
 
-    // Render Sosmed / Komunitas
+    // Render Daftar Kontak Kami (Pengganti Komunitas)
     const sosmedContainer = document.getElementById('sosmed-container');
     if (sosmedContainer && APP_CONFIG.socials) {
         sosmedContainer.innerHTML = APP_CONFIG.socials.map(soc => `
-            <a href="${soc.link}" class="glass-card p-4 rounded-xl border border-emerald-900/40 hover:border-[#34d399] transition-all flex items-center justify-center gap-2 text-sm font-semibold text-slate-300 hover:text-[#34d399]">
-                <i data-lucide="${soc.icon}" class="w-4 h-4"></i> ${soc.name}
+            <a href="${soc.link}" target="_blank" class="glass-card p-5 rounded-xl border border-slate-700 hover:border-pink-400 transition-all flex flex-col items-center justify-center text-center gap-2 group">
+                <div class="p-3 rounded-full bg-pink-500/10 text-pink-400 group-hover:bg-pink-500 group-hover:text-slate-950 transition-all">
+                    <i data-lucide="${soc.icon}" class="w-5 h-5"></i>
+                </div>
+                <span class="text-sm font-bold text-slate-200 group-hover:text-pink-300">${soc.name}</span>
             </a>
         `).join('');
     }
 
-    // Render Sponsor
+    // Render Sponsor Berbentuk Card
     const sponsorContainer = document.getElementById('sponsor-container');
     if (sponsorContainer && APP_CONFIG.sponsors) {
         sponsorContainer.innerHTML = APP_CONFIG.sponsors.map(sp => `
-            <div class="font-bold text-slate-300 text-sm tracking-wider uppercase">${sp}</div>
+            <div class="glass-card p-6 rounded-2xl border border-slate-700/80 hover:border-pink-400 transition-all flex flex-col items-center justify-center text-center shadow-lg">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-500/20 to-blue-500/20 border border-pink-500/30 flex items-center justify-center mb-3 text-pink-300 font-black text-lg">
+                    ${sp.logoText}
+                </div>
+                <h4 class="font-bold text-white text-base">${sp.name}</h4>
+                <span class="text-xs text-pink-400 mt-1 font-medium">${sp.category}</span>
+            </div>
         `).join('');
     }
 
