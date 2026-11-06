@@ -64,15 +64,15 @@ function initAppFromConfig() {
             .join('');
     }
 
-    // Render FAQ (Dapat diedit langsung pada array 'faqs' di config.js)
+    // Render FAQ
     const faqContainer = document.getElementById('faq-container');
     if (faqContainer && APP_CONFIG.faqs) {
         faqContainer.innerHTML = APP_CONFIG.faqs.map(faq => `
-            <div class="cute-card p-6 rounded-2xl">
-                <h4 class="font-bold text-emerald-800 text-sm mb-2 flex items-center gap-2">
+            <div class="cute-card p-6 rounded-2xl bg-white border-2 border-emerald-200 shadow-sm">
+                <h4 class="font-bold text-slate-900 text-sm mb-2 flex items-center gap-2">
                     <i data-lucide="help-circle" class="w-4 h-4 text-emerald-600"></i> ${faq.q}
                 </h4>
-                <p class="text-xs text-slate-600 leading-relaxed pl-6">${faq.a}</p>
+                <p class="text-xs text-slate-600 leading-relaxed pl-6 font-medium">${faq.a}</p>
             </div>
         `).join('');
     }
@@ -81,11 +81,11 @@ function initAppFromConfig() {
     const sosmedContainer = document.getElementById('sosmed-container');
     if (sosmedContainer && APP_CONFIG.socials) {
         sosmedContainer.innerHTML = APP_CONFIG.socials.map(soc => `
-            <a href="${soc.link}" target="_blank" class="cute-card p-5 rounded-2xl flex flex-col items-center justify-center text-center gap-2 group">
-                <div class="p-3 rounded-full bg-emerald-100 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white transition-all">
+            <a href="${soc.link}" target="_blank" class="cute-card p-6 rounded-2xl bg-white border-2 border-emerald-200 hover:border-emerald-500 transition-all flex flex-col items-center justify-center text-center gap-3 shadow-sm group">
+                <div class="p-3.5 rounded-full bg-emerald-100 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white transition-all">
                     <i data-lucide="${soc.icon}" class="w-5 h-5"></i>
                 </div>
-                <span class="text-sm font-bold text-slate-800 group-hover:text-emerald-600">${soc.name}</span>
+                <span class="text-sm font-bold text-slate-900 group-hover:text-emerald-700">${soc.name}</span>
             </a>
         `).join('');
     }
@@ -94,12 +94,12 @@ function initAppFromConfig() {
     const sponsorContainer = document.getElementById('sponsor-container');
     if (sponsorContainer && APP_CONFIG.sponsors) {
         sponsorContainer.innerHTML = APP_CONFIG.sponsors.map(sp => `
-            <div class="cute-card p-6 rounded-2xl flex flex-col items-center justify-center text-center">
-                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-100 to-green-100 border border-emerald-200 flex items-center justify-center mb-3 text-emerald-700 font-black text-lg">
+            <div class="cute-card p-6 rounded-2xl bg-white border-2 border-emerald-200 hover:border-emerald-500 transition-all flex flex-col items-center justify-center text-center shadow-sm">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-100 to-green-100 border border-emerald-300 flex items-center justify-center mb-3 text-emerald-700 font-black text-lg">
                     ${sp.logoText}
                 </div>
                 <h4 class="font-bold text-slate-900 text-base">${sp.name}</h4>
-                <span class="text-xs text-emerald-600 mt-1 font-semibold">${sp.category}</span>
+                <span class="text-xs text-emerald-600 mt-1 font-bold">${sp.category}</span>
             </div>
         `).join('');
     }
