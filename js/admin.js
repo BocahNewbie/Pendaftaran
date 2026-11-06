@@ -160,7 +160,7 @@ function renderRegistrantsTable() {
         </tr>
     `).join('');
 
-    if (window.lucide && typeof lucide.createIcons === 'function') {
+    if (window.lucid && typeof lucide.createIcons === 'function') {
         lucide.createIcons();
     }
 }
@@ -202,7 +202,7 @@ function updatePhaseSlotsFromAdmin() {
     });
 }
 
-// Export Data Peserta ke File CSV (Excel)
+// Export Data Peserta ke File Excel/CSV yang Rapi (Pemisah Titik Koma / Semicolon)
 function downloadCSV() {
     if (!adminData.registrants || adminData.registrants.length === 0) {
         alert("Belum ada data peserta untuk diunduh.");
@@ -210,25 +210,44 @@ function downloadCSV() {
     }
 
     const headers = ["No. Registrasi", "Nama Lengkap", "Email", "WhatsApp", "Phase", "Kategori", "Tanggal", "Status"];
-    const rows = adminData.registrants.map(r => [
-        `"${r.regNo}"`,
-        `"${r.name}"`,
-        `"${r.email}"`,
-        `"${r.phone}"`,
-        `"${r.phase}"`,
-        `"${r.category}"`,
-        `"${r.date}"`,
-        `"${r.status}"`
-    ]);
+    
+    let csvContent = "";
+    // Tambahkan Header dengan pemisah titik koma (;)
+    csvContent += headers.map(h => `"${h}"`).join(";") + "\r\n";
 
-    const csvContent = "data:text/csv;charset=utf-8," 
-        + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
+    // Masukkan data baris peserta
+    adminData.registrants.forEach(r => {
+        let rowData = [
+            r.regNo || "",
+            r.name || "",
+            r.email || "",
+            r.phone || "",
+            r.phase || "",
+            r.category || "",
+            r.date || "",
+            r.status || ""
+        ].map(val => {
+            // Bersihkan teks dan escape tanda kutip ganda
+            let cleanVal = String(val).replace(/(\r\n|\n|\r)/gm, "").trim();
+            cleanVal = cleanVal.replace(/"/g, '""');
+            return `"${cleanVal}"`;
+        });
 
-    const encodedUri = encodeURI(csvContent);
+        csvContent += rowData.join(";") + "\r\n";
+    });
+
+    // Gunakan BOM UTF-8 (\ufeff) agar teks khusus / emoji terbaca sempurna saat dibuka di Excel
+    const blob = new Blob(["\ufeff" + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `Data_Peserta_CYBERFEST_${new Date().toISOString().slice(0,10)}.csv`);
+    
+    const currentDate = new Date().toISOString().slice(0, 10);
+    link.setAttribute("href", url);
+    link.setAttribute("download", `Data_Peserta_CYBERFEST_${currentDate}.csv`);
+    
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    
+    URL.revokeObjectURL(url);
 }
