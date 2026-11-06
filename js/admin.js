@@ -2,25 +2,21 @@
 // ADMIN DASHBOARD & DATA MANAGEMENT MODULE
 // ==========================================
 
-// State Data Admin
 let adminData = {
-    activeTab: 'pending', // 'pending' atau 'approved'
+    activeTab: 'pending',
     sortHeader: 'regNo',
     sortAsc: true,
     registrants: [
-        // Dummy data awal peserta untuk pengujian
         { regNo: "#001", name: "Budi Santoso", email: "budi@example.com", phone: "081234567890", phase: "Phase 1", category: "Web Development", date: "2026-11-01", status: "approved" },
         { regNo: "#002", name: "Siti Rahma", email: "siti@example.com", phone: "085712345678", phase: "Phase 2", category: "UI/UX Design", date: "2026-11-01", status: "pending" }
     ]
 };
 
-// Open & Close Admin Modal
 function openAdminLoginModal() {
     const modal = document.getElementById('admin-login-modal');
     if (modal) modal.classList.remove('hidden');
 }
 
-// Function untuk menutup Modal Login Admin sekaligus membersihkan input username & password
 function closeAdminLoginModal() {
     const modal = document.getElementById('admin-login-modal');
     if (modal) modal.classList.add('hidden');
@@ -39,7 +35,6 @@ function closeAdminDashboard() {
     if (modal) modal.classList.add('hidden');
 }
 
-// Authentication Login Admin (Single Clean Handler)
 function handleAdminLogin(e) {
     e.preventDefault();
     const userEl = document.getElementById('admin-user');
@@ -48,16 +43,14 @@ function handleAdminLogin(e) {
     const pass = passEl ? passEl.value : '';
 
     if (user === 'admin' && pass === 'cyber2026') {
-        // Reset/Kosongkan form input sebelum menutup modal
         if (userEl) userEl.value = '';
         if (passEl) passEl.value = '';
-        
         closeAdminLoginModal();
         
         const dash = document.getElementById('admin-dashboard-modal');
         if (dash) {
             dash.classList.remove('hidden');
-            initAdminDashboard(); // Sinkronkan data saat dashboard dibuka
+            initAdminDashboard();
         }
     } else {
         const err = document.getElementById('admin-error-msg');
@@ -65,9 +58,7 @@ function handleAdminLogin(e) {
     }
 }
 
-// Inisialisasi & Sinkronisasi Dashboard Admin
 function initAdminDashboard() {
-    // 1. Isikan data default ke form admin jika belum terisi
     if (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.phases) {
         ['p1', 'p2', 'p3'].forEach((pKey, idx) => {
             const pData = APP_CONFIG.phases[pKey];
@@ -86,37 +77,35 @@ function initAdminDashboard() {
             }
         });
     }
-
-    // 2. Render Tabel Peserta
     renderRegistrantsTable();
 }
 
-// Switch Tab (Antrian vs Terdaftar)
 function switchAdminTab(tabName) {
     adminData.activeTab = tabName;
     
     const btnPending = document.getElementById('tab-btn-pending');
     const btnApproved = document.getElementById('tab-btn-approved');
 
+    const activeClass = "px-4 py-2 rounded-lg text-xs font-bold transition-all bg-[#34d399] text-slate-950 shadow-[0_0_15px_rgba(52,211,153,0.3)] flex items-center gap-1.5";
+    const inactiveClass = "px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all flex items-center gap-1.5";
+
     if (tabName === 'pending') {
-        if (btnPending) btnPending.className = "px-4 py-2 rounded-lg text-xs font-bold transition-all bg-neonCyan text-slate-950 shadow-neon-cyan flex items-center gap-1.5";
-        if (btnApproved) btnApproved.className = "px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all flex items-center gap-1.5";
+        if (btnPending) btnPending.className = activeClass;
+        if (btnApproved) btnApproved.className = inactiveClass;
     } else {
-        if (btnApproved) btnApproved.className = "px-4 py-2 rounded-lg text-xs font-bold transition-all bg-neonCyan text-slate-950 shadow-neon-cyan flex items-center gap-1.5";
-        if (btnPending) btnPending.className = "px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all flex items-center gap-1.5";
+        if (btnApproved) btnApproved.className = activeClass;
+        if (btnPending) btnPending.className = inactiveClass;
     }
 
     renderRegistrantsTable();
 }
 
-// Render Tabel Peserta
 function renderRegistrantsTable() {
     const tbody = document.getElementById('registrants-table-body');
     const searchVal = (document.getElementById('search-registrant')?.value || '').toLowerCase();
     
     if (!tbody) return;
 
-    // Filter berdasarkan Tab & Search
     let filtered = adminData.registrants.filter(r => r.status === adminData.activeTab);
     
     if (searchVal) {
@@ -127,30 +116,28 @@ function renderRegistrantsTable() {
         );
     }
 
-    // Update Counter Jumlah Tab
     const cntPending = document.getElementById('cnt-pending');
     const cntApproved = document.getElementById('cnt-approved');
     if (cntPending) cntPending.innerText = adminData.registrants.filter(r => r.status === 'pending').length;
     if (cntApproved) cntApproved.innerText = adminData.registrants.filter(r => r.status === 'approved').length;
 
-    // Render Baris Tabel
     if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" class="p-6 text-center text-slate-500">Tidak ada data peserta.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" class="p-6 text-center text-slate-400">Tidak ada data peserta.</td></tr>`;
         return;
     }
 
     tbody.innerHTML = filtered.map(r => `
-        <tr class="hover:bg-slate-900/40 transition-colors">
-            <td class="p-3 font-mono text-neonCyan font-bold">${r.regNo}</td>
+        <tr class="hover:bg-[#0d1f18] transition-colors border-b border-emerald-900/30">
+            <td class="p-3 font-mono text-[#34d399] font-bold">${r.regNo}</td>
             <td class="p-3 font-semibold text-white">${r.name}</td>
-            <td class="p-3 text-slate-400">${r.email}</td>
-            <td class="p-3 text-slate-400">${r.phone}</td>
-            <td class="p-3 text-neonPurple">${r.phase}</td>
-            <td class="p-3 text-slate-300">${r.category}</td>
+            <td class="p-3 text-slate-300">${r.email}</td>
+            <td class="p-3 text-slate-300">${r.phone}</td>
+            <td class="p-3 text-[#6ee7b7]">${r.phase}</td>
+            <td class="p-3 text-slate-200">${r.category}</td>
             <td class="p-3 text-slate-400">${r.date}</td>
             <td class="p-3 text-center">
                 ${r.status === 'pending' ? `
-                    <button onclick="approveRegistrant('${r.regNo}')" class="px-2.5 py-1 rounded bg-neonGreen/20 text-neonGreen border border-neonGreen/40 hover:bg-neonGreen hover:text-black font-bold text-[11px] transition-all">
+                    <button onclick="approveRegistrant('${r.regNo}')" class="px-2.5 py-1 rounded bg-[#34d399]/20 text-[#34d399] border border-[#34d399]/40 hover:bg-[#34d399] hover:text-slate-950 font-bold text-[11px] transition-all">
                         Verifikasi
                     </button>
                 ` : `
@@ -160,12 +147,11 @@ function renderRegistrantsTable() {
         </tr>
     `).join('');
 
-    if (window.lucid && typeof lucide.createIcons === 'function') {
+    if (window.lucide && typeof lucide.createIcons === 'function') {
         lucide.createIcons();
     }
 }
 
-// Verifikasi Pembayaran Peserta
 function approveRegistrant(regNo) {
     const target = adminData.registrants.find(r => r.regNo === regNo);
     if (target) {
@@ -174,7 +160,6 @@ function approveRegistrant(regNo) {
     }
 }
 
-// Update Kuota & Harga ke Tampilan Depan secara Sinkron
 function updatePhaseSlotsFromAdmin() {
     ['p1', 'p2', 'p3'].forEach((pKey, idx) => {
         const num = idx + 1;
@@ -183,7 +168,6 @@ function updatePhaseSlotsFromAdmin() {
         const filledVal = parseInt(document.getElementById(`edit-${pKey}-filled`)?.value || 0);
         const totalVal = parseInt(document.getElementById(`edit-${pKey}-total`)?.value || 1);
 
-        // Update UI Halaman Depan jika elemen tersedia
         const titleDisp = document.getElementById(`phase${num}-title-display`);
         const priceDisp = document.getElementById(`phase${num}-price-display`);
         const slotText = document.getElementById(`phase${num}-slot-text`);
@@ -202,7 +186,7 @@ function updatePhaseSlotsFromAdmin() {
     });
 }
 
-// Export Data Peserta ke File Excel/CSV yang Rapi (Pemisah Titik Koma / Semicolon)
+// Fungsi Download CSV khusus File Excel (Pemisah Semicolon / Titik Koma)
 function downloadCSV() {
     if (!adminData.registrants || adminData.registrants.length === 0) {
         alert("Belum ada data peserta untuk diunduh.");
@@ -212,10 +196,8 @@ function downloadCSV() {
     const headers = ["No. Registrasi", "Nama Lengkap", "Email", "WhatsApp", "Phase", "Kategori", "Tanggal", "Status"];
     
     let csvContent = "";
-    // Tambahkan Header dengan pemisah titik koma (;)
     csvContent += headers.map(h => `"${h}"`).join(";") + "\r\n";
 
-    // Masukkan data baris peserta
     adminData.registrants.forEach(r => {
         let rowData = [
             r.regNo || "",
@@ -227,7 +209,6 @@ function downloadCSV() {
             r.date || "",
             r.status || ""
         ].map(val => {
-            // Bersihkan teks dan escape tanda kutip ganda
             let cleanVal = String(val).replace(/(\r\n|\n|\r)/gm, "").trim();
             cleanVal = cleanVal.replace(/"/g, '""');
             return `"${cleanVal}"`;
@@ -236,7 +217,6 @@ function downloadCSV() {
         csvContent += rowData.join(";") + "\r\n";
     });
 
-    // Gunakan BOM UTF-8 (\ufeff) agar teks khusus / emoji terbaca sempurna saat dibuka di Excel
     const blob = new Blob(["\ufeff" + csvContent], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
