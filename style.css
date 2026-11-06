@@ -1,18 +1,17 @@
-/* Import Tailwind CSS Directives */
 @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
 
 :root {
-  --bg-primary: #06100c;       /* Deep Forest Green (Latar Belakang Utama) */
-  --bg-card: #0d1f18;         /* Kartu & Modal Glassmorphism */
-  --green-primary: #34d399;    /* Hijau Mint / Pastel Utama */
-  --green-light: #6ee7b7;      /* Sage Green Terang */
-  --green-glow: rgba(52, 211, 153, 0.25);
+  --bg-primary: #f0fdf4;       /* Hijau Sangat Muda / Pastel Ceria */
+  --bg-card: #ffffff;         /* Kartu Putih Bersih */
+  --pastel-green: #34d399;     /* Hijau Mint Utama */
+  --soft-yellow: #fef08a;      /* Kuning Ceria */
+  --soft-pink: #fbcfe8;        /* Pink Pastel Lembut */
+  --text-main: #1e293b;        /* Teks Gelap Kontras Tinggi (Mudah Dibaca) */
 }
 
-/* Background Utama Halaman */
 html, body {
-    background-color: #06100c !important;
-    color: #ecfdf5;
+    background-color: var(--bg-primary) !important;
+    color: var(--text-main);
     min-height: 100vh;
     font-family: 'Inter', sans-serif;
 }
@@ -22,59 +21,33 @@ html, body {
     width: 8px;
 }
 ::-webkit-scrollbar-track {
-    background: #06100c;
+    background: #f0fdf4;
 }
 ::-webkit-scrollbar-thumb {
-    background: #133325;
+    background: #86efac;
     border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
     background: #34d399;
 }
 
-/* Background Grid Pattern Bernuansa Hijau */
-.bg-grid {
-    background-image: radial-gradient(rgba(52, 211, 153, 0.08) 1px, transparent 1px);
-    background-size: 32px 32px;
+/* Kartu Bersih & Ceria (Tanpa Glassmorphism Gelap) */
+.cute-card {
+    background: #ffffff !important;
+    border: 2px solid #bbf7d0;
+    box-shadow: 0 10px 25px -5px rgba(52, 211, 153, 0.15);
+    transition: all 0.3s ease;
 }
 
-/* Glassmorphism Effect */
-.glass-card {
-    background: rgba(13, 31, 24, 0.85) !important;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(52, 211, 153, 0.15);
-}
-
-.glass-card-hover {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.glass-card-hover:hover {
+.cute-card:hover {
     transform: translateY(-5px);
-    border-color: rgba(52, 211, 153, 0.5);
-    box-shadow: 0 10px 30px -10px rgba(52, 211, 153, 0.25);
+    border-color: #34d399;
+    box-shadow: 0 15px 30px -5px rgba(52, 211, 153, 0.25);
 }
 
-/* Neon Text & Box Glow Effects (Green Aesthetic) */
-.text-glow-green {
-    text-shadow: 0 0 15px rgba(52, 211, 153, 0.6), 0 0 30px rgba(52, 211, 153, 0.2);
-}
-
-.shadow-neon-green {
-    box-shadow: 0 0 20px rgba(52, 211, 153, 0.25), inset 0 0 15px rgba(52, 211, 153, 0.1);
-}
-
-/* Override Utility Kelas Lama agar Selaras dengan Hijau */
-.text-neonCyan, .text-neonPurple, .text-neonGreen {
-    color: #34d399 !important;
-}
-.bg-neonCyan, .bg-neonPurple, .bg-neonGreen {
-    background-color: #34d399 !important;
-}
-.border-neonCyan, .border-neonPurple, .border-neonGreen {
-    border-color: #34d399 !important;
-}
-.selection\:bg-neonCyan {
-    background-color: #34d399 !important;
-    color: #06100c !important;
+/* Header & Navigasi */
+header {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid #dcfce7;
 }
