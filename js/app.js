@@ -2,7 +2,6 @@
 // PUBLIC USER INTERFACE & MODAL HANDLERS
 // ==========================================
 
-// Function untuk membuka modal pendaftaran berdasarkan phase
 function triggerRegistration(phaseId) {
     const modal = document.getElementById('register-modal');
     const phaseTag = document.getElementById('modal-phase-tag');
@@ -26,7 +25,6 @@ function handleFormSubmit(e) {
     e.preventDefault();
     closeRegisterModal();
     
-    // Tampilkan Modal Pembayaran / QRIS
     const payModal = document.getElementById('payment-modal');
     if (payModal) payModal.classList.remove('hidden');
 }
@@ -41,7 +39,6 @@ function closeEticketModal() {
     if (eticketModal) eticketModal.classList.add('hidden');
 }
 
-// Mobile Menu Toggle
 function toggleMobileMenu() {
     const mobileMenu = document.getElementById('mobile-menu');
     if (mobileMenu) {
@@ -49,7 +46,7 @@ function toggleMobileMenu() {
     }
 }
 
-// Inisialisasi Data dari config.js
+// Inisialisasi Data dari config.js ke elemen DOM
 function initAppFromConfig() {
     if (typeof APP_CONFIG === 'undefined') return;
 
@@ -71,18 +68,18 @@ function initAppFromConfig() {
     const faqContainer = document.getElementById('faq-container');
     if (faqContainer && APP_CONFIG.faqs) {
         faqContainer.innerHTML = APP_CONFIG.faqs.map(faq => `
-            <div class="glass-card p-5 rounded-xl border border-slate-800">
+            <div class="glass-card p-5 rounded-xl border border-emerald-900/40">
                 <h4 class="font-bold text-white text-sm mb-2">${faq.q}</h4>
-                <p class="text-xs text-slate-400 leading-relaxed">${faq.a}</p>
+                <p class="text-xs text-slate-300 leading-relaxed">${faq.a}</p>
             </div>
         `).join('');
     }
 
-    // Render Sosmed
+    // Render Sosmed / Komunitas
     const sosmedContainer = document.getElementById('sosmed-container');
     if (sosmedContainer && APP_CONFIG.socials) {
         sosmedContainer.innerHTML = APP_CONFIG.socials.map(soc => `
-            <a href="${soc.link}" class="glass-card p-4 rounded-xl border border-slate-800 hover:border-neonCyan transition-all flex items-center justify-center gap-2 text-sm font-semibold text-slate-300 hover:text-neonCyan">
+            <a href="${soc.link}" class="glass-card p-4 rounded-xl border border-emerald-900/40 hover:border-[#34d399] transition-all flex items-center justify-center gap-2 text-sm font-semibold text-slate-300 hover:text-[#34d399]">
                 <i data-lucide="${soc.icon}" class="w-4 h-4"></i> ${soc.name}
             </a>
         `).join('');
@@ -92,7 +89,7 @@ function initAppFromConfig() {
     const sponsorContainer = document.getElementById('sponsor-container');
     if (sponsorContainer && APP_CONFIG.sponsors) {
         sponsorContainer.innerHTML = APP_CONFIG.sponsors.map(sp => `
-            <div class="font-bold text-slate-400 text-sm tracking-wider uppercase">${sp}</div>
+            <div class="font-bold text-slate-300 text-sm tracking-wider uppercase">${sp}</div>
         `).join('');
     }
 
