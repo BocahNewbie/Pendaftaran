@@ -1,11 +1,10 @@
 @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
 
 :root {
-  --bg-primary: #f0fdf4;       /* Hijau Sangat Muda / Pastel Ceria */
+  --bg-primary: #d1fae5;       /* Hijau Mint Pastel Lembut (Tidak Silau) */
   --bg-card: #ffffff;         /* Kartu Putih Bersih */
-  --pastel-green: #34d399;     /* Hijau Mint Utama */
-  --text-main: #1e293b;        /* Teks Gelap Kontras Tinggi (Sangat Jelas Dibaca) */
-  --text-muted: #475569;       /* Teks Sekunder Abu-abu Gelap */
+  --text-main: #0f172a;        /* Teks Hitam Kebiruan Pekat (Sangat Jelas & Tajam) */
+  --text-muted: #334155;       /* Teks Sekunder Abu-abu Gelap */
 }
 
 html, body {
@@ -20,43 +19,39 @@ html, body {
     width: 8px;
 }
 ::-webkit-scrollbar-track {
-    background: #f0fdf4;
+    background: #d1fae5;
 }
 ::-webkit-scrollbar-thumb {
-    background: #86efac;
+    background: #34d399;
     border-radius: 4px;
 }
-::-webkit-scrollbar-thumb:hover {
-    background: #34d399;
-}
 
-/* Kartu Bersih, Terang, & Ceria (Tanpa Glassmorphism Gelap) */
+/* Kartu Putih dengan Border Kontras Jelas */
 .cute-card {
     background: #ffffff !important;
-    color: #1e293b !important;
-    border: 2px solid #bbf7d0;
-    box-shadow: 0 10px 25px -5px rgba(52, 211, 153, 0.15);
+    color: #0f172a !important;
+    border: 2.5px solid #6ee7b7;
+    box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.2);
     transition: all 0.3s ease;
 }
 
 .cute-card:hover {
-    transform: translateY(-5px);
-    border-color: #34d399;
-    box-shadow: 0 15px 30px -5px rgba(52, 211, 153, 0.25);
+    transform: translateY(-4px);
+    border-color: #059669;
+    box-shadow: 0 15px 30px -5px rgba(16, 185, 129, 0.3);
 }
 
-/* Header & Navigasi Terang & Jelas */
+/* Navigasi Atas */
 header {
-    background-color: rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: blur(10px);
-    border-bottom: 2px solid #dcfce7;
+    background-color: rgba(255, 255, 255, 0.98) !important;
+    border-bottom: 2.5px solid #6ee7b7;
 }
 
-/* Perbaikan Kontras Seluruh Teks Pendukung */
-p, span, li, h1, h2, h3, h4 {
+/* Paksa Seluruh Teks agar Menggunakan Warna Gelap Kontras Tinggi */
+p, span, li, h1, h2, h3, h4, a {
     color: inherit;
 }
 
-.text-slate-300, .text-slate-400 {
-    color: #475569 !important; /* Diubah menjadi abu-abu gelap agar jelas terbaca di latar cerah */
+.text-slate-300, .text-slate-400, .text-slate-600 {
+    color: #334155 !important; /* Diubah jadi gelap agar sangat mudah dibaca */
 }
