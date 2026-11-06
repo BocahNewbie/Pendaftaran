@@ -7,7 +7,7 @@ let adminData = {
     sortHeader: 'regNo',
     sortAsc: true,
     registrants: [
-        { regNo: "#001", name: "Budi Santoso", email: "budi@example.com", phone: "081234567890", phase: "Phase 1", category: "Web Development", date: "2026-11-01", status: "approved" },
+        { regNo: "#001", name: "Eman Rahman", email: "eman@example.com", phone: "081234567890", phase: "Phase 1", category: "Web Development", date: "2026-11-01", status: "approved" },
         { regNo: "#002", name: "Siti Rahma", email: "siti@example.com", phone: "085712345678", phase: "Phase 2", category: "UI/UX Design", date: "2026-11-01", status: "pending" }
     ]
 };
@@ -59,24 +59,6 @@ function handleAdminLogin(e) {
 }
 
 function initAdminDashboard() {
-    if (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.phases) {
-        ['p1', 'p2', 'p3'].forEach((pKey, idx) => {
-            const pData = APP_CONFIG.phases[pKey];
-            if (pData) {
-                const elName = document.getElementById(`edit-${pKey}-name`);
-                const elPrice = document.getElementById(`edit-${pKey}-price`);
-                const elFilled = document.getElementById(`edit-${pKey}-filled`);
-                const elTotal = document.getElementById(`edit-${pKey}-total`);
-                const elOpen = document.getElementById(`edit-${pKey}-open`);
-
-                if (elName && !elName.value) elName.value = pData.name || `Phase ${idx+1}`;
-                if (elPrice && !elPrice.value) elPrice.value = pData.price || 'Rp 0';
-                if (elFilled && !elFilled.value) elFilled.value = pData.filled || 0;
-                if (elTotal && !elTotal.value) elTotal.value = pData.total || 50;
-                if (elOpen) elOpen.checked = pData.open !== false;
-            }
-        });
-    }
     renderRegistrantsTable();
 }
 
@@ -160,33 +142,7 @@ function approveRegistrant(regNo) {
     }
 }
 
-function updatePhaseSlotsFromAdmin() {
-    ['p1', 'p2', 'p3'].forEach((pKey, idx) => {
-        const num = idx + 1;
-        const nameVal = document.getElementById(`edit-${pKey}-name`)?.value;
-        const priceVal = document.getElementById(`edit-${pKey}-price`)?.value;
-        const filledVal = parseInt(document.getElementById(`edit-${pKey}-filled`)?.value || 0);
-        const totalVal = parseInt(document.getElementById(`edit-${pKey}-total`)?.value || 1);
-
-        const titleDisp = document.getElementById(`phase${num}-title-display`);
-        const priceDisp = document.getElementById(`phase${num}-price-display`);
-        const slotText = document.getElementById(`phase${num}-slot-text`);
-        const progressBar = document.getElementById(`phase${num}-progress`);
-        const detailText = document.getElementById(`phase${num}-detail-text`);
-
-        if (titleDisp && nameVal) titleDisp.innerText = nameVal;
-        if (priceDisp && priceVal) priceDisp.innerText = priceVal;
-        
-        const remaining = Math.max(0, totalVal - filledVal);
-        const pct = Math.min(100, Math.round((filledVal / totalVal) * 100));
-
-        if (slotText) slotText.innerText = `${remaining} Slot Tersisa`;
-        if (progressBar) progressBar.style.width = `${pct}%`;
-        if (detailText) detailText.innerText = `${pct}% Terisi (${filledVal}/${totalVal} Slot)`;
-    });
-}
-
-// Fungsi Download CSV khusus File Excel (Pemisah Semicolon / Titik Koma)
+// Fungsi Export Data Peserta Menjadi File Excel Rapi (Pemisah Titik Koma / Semicolon)
 function downloadCSV() {
     if (!adminData.registrants || adminData.registrants.length === 0) {
         alert("Belum ada data peserta untuk diunduh.");
@@ -196,6 +152,7 @@ function downloadCSV() {
     const headers = ["No. Registrasi", "Nama Lengkap", "Email", "WhatsApp", "Phase", "Kategori", "Tanggal", "Status"];
     
     let csvContent = "";
+    // Pemisah titik koma (;) agar data otomatis terbagi ke kolom terpisah saat dibuka di Excel region Indonesia
     csvContent += headers.map(h => `"${h}"`).join(";") + "\r\n";
 
     adminData.registrants.forEach(r => {
@@ -217,6 +174,7 @@ function downloadCSV() {
         csvContent += rowData.join(";") + "\r\n";
     });
 
+    // Menggunakan UTF-8 BOM (\ufeff) agar karakter khusus/emoji terbaca sempurna di Excel
     const blob = new Blob(["\ufeff" + csvContent], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
