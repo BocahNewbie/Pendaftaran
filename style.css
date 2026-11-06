@@ -4,14 +4,13 @@
   --bg-primary: #f0fdf4;       /* Hijau Sangat Muda / Pastel Ceria */
   --bg-card: #ffffff;         /* Kartu Putih Bersih */
   --pastel-green: #34d399;     /* Hijau Mint Utama */
-  --soft-yellow: #fef08a;      /* Kuning Ceria */
-  --soft-pink: #fbcfe8;        /* Pink Pastel Lembut */
-  --text-main: #1e293b;        /* Teks Gelap Kontras Tinggi (Mudah Dibaca) */
+  --text-main: #1e293b;        /* Teks Gelap Kontras Tinggi (Sangat Jelas Dibaca) */
+  --text-muted: #475569;       /* Teks Sekunder Abu-abu Gelap */
 }
 
 html, body {
     background-color: var(--bg-primary) !important;
-    color: var(--text-main);
+    color: var(--text-main) !important;
     min-height: 100vh;
     font-family: 'Inter', sans-serif;
 }
@@ -31,9 +30,10 @@ html, body {
     background: #34d399;
 }
 
-/* Kartu Bersih & Ceria (Tanpa Glassmorphism Gelap) */
+/* Kartu Bersih, Terang, & Ceria (Tanpa Glassmorphism Gelap) */
 .cute-card {
     background: #ffffff !important;
+    color: #1e293b !important;
     border: 2px solid #bbf7d0;
     box-shadow: 0 10px 25px -5px rgba(52, 211, 153, 0.15);
     transition: all 0.3s ease;
@@ -45,9 +45,18 @@ html, body {
     box-shadow: 0 15px 30px -5px rgba(52, 211, 153, 0.25);
 }
 
-/* Header & Navigasi */
+/* Header & Navigasi Terang & Jelas */
 header {
-    background-color: rgba(255, 255, 255, 0.9) !important;
+    background-color: rgba(255, 255, 255, 0.95) !important;
     backdrop-filter: blur(10px);
     border-bottom: 2px solid #dcfce7;
+}
+
+/* Perbaikan Kontras Seluruh Teks Pendukung */
+p, span, li, h1, h2, h3, h4 {
+    color: inherit;
+}
+
+.text-slate-300, .text-slate-400 {
+    color: #475569 !important; /* Diubah menjadi abu-abu gelap agar jelas terbaca di latar cerah */
 }
