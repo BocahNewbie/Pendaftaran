@@ -56,12 +56,28 @@ function initAppFromConfig() {
     if (brandTitle) brandTitle.innerText = APP_CONFIG.eventName || 'BABY PLAY DATE 2026';
     if (footerBrand) footerBrand.innerText = APP_CONFIG.eventName || 'BABY PLAY DATE 2026';
 
-    // Populate Kategori Lomba pada Form Pendaftaran
+    // Populate Kategori Lomba pada Form Pendaftaran (Dengan pengecekan kosong)
     const categorySelect = document.getElementById('reg-category');
-    if (categorySelect && APP_CONFIG.categories) {
-        categorySelect.innerHTML = APP_CONFIG.categories
-            .map(cat => `<option value="${cat}">${cat}</option>`)
-            .join('');
+    if (categorySelect) {
+        if (APP_CONFIG.categories && APP_CONFIG.categories.length > 0) {
+            categorySelect.innerHTML = APP_CONFIG.categories
+                .map(cat => `<option value="${cat}">${cat}</option>`)
+                .join('');
+        } else {
+            categorySelect.innerHTML = `<option value="">-- Kategori belum tersedia --</option>`;
+        }
+    }
+
+    // Render Kategori di Halaman Depan / Phases Component (Mencegah error jika kosong)
+    const phasesContainer = document.getElementById('phases-component') || document.getElementById('kategori-container');
+    if (phasesContainer) {
+        if (!APP_CONFIG.categories || APP_CONFIG.categories.length === 0) {
+            phasesContainer.innerHTML = `
+                <div class="col-span-full py-12 text-center bg-slate-900/20 rounded-2xl border border-slate-800">
+                    <p class="text-slate-400 text-sm font-medium">Belum ada kategori lomba yang ditambahkan oleh admin.</p>
+                </div>
+            `;
+        }
     }
 
     // Render FAQ
