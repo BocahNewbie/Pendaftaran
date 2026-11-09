@@ -60,6 +60,7 @@ function handleAdminLogin(e) {
 
 function initAdminDashboard() {
     renderRegistrantsTable();
+    resetAdminForm(); // Memastikan form admin aman/kosong secara rapi saat pertama dibuka
 }
 
 function switchAdminTab(tabName) {
@@ -88,6 +89,16 @@ function renderRegistrantsTable() {
     
     if (!tbody) return;
 
+    // Validasi pengaman jika registrants kosong atau null
+    if (!adminData.registrants || adminData.registrants.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" class="p-6 text-center text-slate-400">Belum ada data pendaftar yang masuk.</td></tr>`;
+        const cntPending = document.getElementById('cnt-pending');
+        const cntApproved = document.getElementById('cnt-approved');
+        if (cntPending) cntPending.innerText = 0;
+        if (cntApproved) cntApproved.innerText = 0;
+        return;
+    }
+
     let filtered = adminData.registrants.filter(r => r.status === adminData.activeTab);
     
     if (searchVal) {
@@ -104,7 +115,7 @@ function renderRegistrantsTable() {
     if (cntApproved) cntApproved.innerText = adminData.registrants.filter(r => r.status === 'approved').length;
 
     if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" class="p-6 text-center text-slate-400">Tidak ada data peserta.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" class="p-6 text-center text-slate-400">Tidak ada data peserta untuk kategori ini.</td></tr>`;
         return;
     }
 
@@ -118,19 +129,110 @@ function renderRegistrantsTable() {
             <td class="p-3 text-slate-200">${r.category}</td>
             <td class="p-3 text-slate-400">${r.date}</td>
             <td class="p-3 text-center">
-                ${r.status === 'pending' ? `
-                    <button onclick="approveRegistrant('${r.regNo}')" class="px-2.5 py-1 rounded bg-[#34d399]/20 text-[#34d399] border border-[#34d399]/40 hover:bg-[#34d399] hover:text-slate-950 font-bold text-[11px] transition-all">
-                        Verifikasi
+                <div class="flex items-center justify-center gap-2">
+                    ${r.status === 'pending' ? `
+                        <button onclick="approveRegistrant('${r.regNo}')" class="px-2.5 py-1 rounded bg-[#34d399]/20 text-[#34d399] border border-[#34d399]/40 hover:bg-[#34d399] hover:text-slate-950 font-bold text-[11px] transition-all">
+                            Verifikasi
+                        </button>
+                    ` : `
+                        <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold">TERDAFTAR</span>
+                    `}
+                    <button onclick="openEditForm('${r.regNo}')" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 hover:text-white font-bold text-[11px] transition-all">
+                        Edit
                     </button>
-                ` : `
-                    <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold">TERDAFTAR</span>
-                `}
+                </div>
             </td>
         </tr>
     `).join('');
 
     if (window.lucide && typeof lucide.createIcons === 'function') {
         lucide.createIcons();
+    }
+}
+
+// Fungsi untuk Membuka Form Edit dengan Tombol Save Edit & Cancel
+function openEditForm(regNo) {
+    const target = adminData.registrants.find(r => r.regNo === regNo);
+    const formContainer = document.getElementById('admin-form-container') || document.getElementById('admin-form-wrapper');
+    
+    if (!formContainer) return;
+
+    // Jika data tidak ditemukan, tampilkan state kosong/aman
+    if (!target) {
+        resetAdminForm();
+        return;
+    }
+
+    formContainer.innerHTML = `
+        <form id="edit-registrant-form" class="space-y-4 bg-slate-900/90 p-5 rounded-xl border border-emerald-500/30 shadow-lg">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+                <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-[#34d399]"></span> Edit Data Peserta: <span class="font-mono text-[#34d399]">${target.regNo}</span>
+                </h4>
+            </div>
+
+            <div>
+                <label class="block text-xs text-slate-400 mb-1">Nama Lengkap</label>
+                <input type="text" id="edit-name" value="${target.name || ''}" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white text-xs focus:outline-none focus:border-[#34d399]" required />
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">Email</label>
+                    <input type="email" id="edit-email" value="${target.email || ''}" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white text-xs focus:outline-none focus:border-[#34d399]" required />
+                </div>
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">WhatsApp</label>
+                    <input type="text" id="edit-phone" value="${target.phone || ''}" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white text-xs focus:outline-none focus:border-[#34d399]" required />
+                </div>
+            </div>
+
+            <!-- Tombol Aksi: Save Edit & Cancel -->
+            <div class="flex items-center gap-2 pt-2">
+                <button type="submit" class="flex-1 bg-[#34d399] hover:bg-[#2bc28b] text-slate-950 font-bold py-2 px-4 rounded-lg text-xs transition shadow-md">
+                    Save Edit
+                </button>
+                <button type="button" id="cancel-edit-btn" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-2 px-4 rounded-lg text-xs transition border border-slate-700">
+                    Cancel
+                </button>
+            </div>
+        </form>
+    `;
+
+    // Event listener untuk tombol Cancel
+    document.getElementById('cancel-edit-btn').addEventListener('click', () => {
+        resetAdminForm();
+    });
+
+    // Event listener untuk Submit (Save Edit)
+    document.getElementById('edit-registrant-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        saveEditedRegistrant(regNo);
+    });
+}
+
+// Fungsi Menyimpan Hasil Edit Data Peserta
+function saveEditedRegistrant(regNo) {
+    const target = adminData.registrants.find(r => r.regNo === regNo);
+    if (target) {
+        target.name = document.getElementById('edit-name').value;
+        target.email = document.getElementById('edit-email').value;
+        target.phone = document.getElementById('edit-phone').value;
+        
+        renderRegistrantsTable();
+        resetAdminForm();
+    }
+}
+
+// Fungsi Mereset Form Admin Menjadi Kosong / Default
+function resetAdminForm() {
+    const formContainer = document.getElementById('admin-form-container') || document.getElementById('admin-form-wrapper');
+    if (formContainer) {
+        formContainer.innerHTML = `
+            <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-800 text-center">
+                <p class="text-slate-400 text-xs">Pilih salah satu data peserta di tabel untuk melakukan pengeditan data.</p>
+            </div>
+        `;
     }
 }
 
